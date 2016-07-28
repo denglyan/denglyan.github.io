@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="blog">
 <meta property="og:description" content="通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，选择一个满足需求的，合理的结构。
 目前关系数据库有六种范式：1NF，2NF，3NF，BCNF，4NF，5NF。">
-<meta property="og:updated_time" content="2016-07-28T08:18:23.536Z">
+<meta property="og:updated_time" content="2016-07-28T08:51:51.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库范式（关系型数据库）">
 <meta name="twitter:description" content="通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，选择一个满足需求的，合理的结构。
@@ -261,7 +261,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T16:00:00+08:00" content="2016-07-28">
+            <time itemprop="dateCreated" datetime="2016-07-28T17:00:00+08:00" content="2016-07-28">
               2016-07-28
             </time>
           </span>
@@ -322,20 +322,162 @@
 <p>目前关系数据库有六种范式：1NF，2NF，3NF，BCNF，4NF，5NF。</p>
 <a id="more"></a>
 <h3 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h3><p>要求数据库表的每一列都是不可分割的<code>原子数据项</code>，即实体中的某个属性有多个值时，必须拆分为不同的属性。<br>例如：</p>
-<p><strong>用户信息表</strong><br>|编号|姓名|年龄|地址|<br>|:–:|:–:|:–:|:–:|<br>|1|小王|23|浙江省杭州市拱墅区湖州街51号|</p>
+<p><strong>用户信息表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">编号</th>
+<th style="text-align:center">姓名</th>
+<th style="text-align:center">年龄</th>
+<th style="text-align:center">地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">小王</td>
+<td style="text-align:center">23</td>
+<td style="text-align:center">浙江省杭州市拱墅区湖州街51号</td>
+</tr>
+</tbody>
+</table>
 <p>当实际需求对地址没有特定的要求下，这个用户信息表的每一列都是不可分割的。但是当实际需求对省份或者城市有特别要求时，这个用户信息表中的地址就是可以分割的。<br>改为：</p>
-<p><strong>用户信息表</strong><br>|编号|姓名|年龄|省份|城市|详细地址|<br>|:–:|:–:|:–:|:–:|:–:|:–:|<br>|1|小王|23|浙江省|杭州市|拱墅区湖州街51号|</p>
+<p><strong>用户信息表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">编号</th>
+<th style="text-align:center">姓名</th>
+<th style="text-align:center">年龄</th>
+<th style="text-align:center">省份</th>
+<th style="text-align:center">城市</th>
+<th style="text-align:center">详细地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">小王</td>
+<td style="text-align:center">23</td>
+<td style="text-align:center">浙江省</td>
+<td style="text-align:center">杭州市</td>
+<td style="text-align:center">拱墅区湖州街51号</td>
+</tr>
+</tbody>
+</table>
 <p><strong>好处</strong>：</p>
 <ul>
 <li>表结构相对清晰</li>
 <li>易于查询</li>
 </ul>
 <h3 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h3><p>主键与非主键之间是<code>完全函数依赖关系</code>。即数据库表中的每一列都和主键的所有属性相关，不能只和主键的部分属性相关。<br>完全函数依赖：有属性集X，Y，通过X中的所有属性能够推出Y中的任意属性，但是X的任何真子集，都不能推出Y中的任何属性。<br>例如：</p>
-<p><strong>学生课程表</strong><br>|学生编号|课程编号|学生名称|课程名称|所在班级|班主任|<br>|:–:|:–:|:–:|:–:|:–:|:–:|<br>|S1|C1|小王|计算机导论|计算机3班|陈老师|<br>|S1|C2|小王|数据结构|计算机3班|陈老师|<br>|S2|C1|小马|计算机导论|软件1班|李老师|</p>
+<p><strong>学生课程表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">学生编号</th>
+<th style="text-align:center">课程编号</th>
+<th style="text-align:center">学生名称</th>
+<th style="text-align:center">课程名称</th>
+<th style="text-align:center">所在班级</th>
+<th style="text-align:center">班主任</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">S1</td>
+<td style="text-align:center">C1</td>
+<td style="text-align:center">小王</td>
+<td style="text-align:center">计算机导论</td>
+<td style="text-align:center">计算机3班</td>
+<td style="text-align:center">陈老师</td>
+</tr>
+<tr>
+<td style="text-align:center">S1</td>
+<td style="text-align:center">C2</td>
+<td style="text-align:center">小王</td>
+<td style="text-align:center">数据结构</td>
+<td style="text-align:center">计算机3班</td>
+<td style="text-align:center">陈老师</td>
+</tr>
+<tr>
+<td style="text-align:center">S2</td>
+<td style="text-align:center">C1</td>
+<td style="text-align:center">小马</td>
+<td style="text-align:center">计算机导论</td>
+<td style="text-align:center">软件1班</td>
+<td style="text-align:center">李老师</td>
+</tr>
+</tbody>
+</table>
 <p>将学生编号和课程编号作为主键，能确定唯一一条数据，但是学生名称只跟学生编号有关，跟课程编号无关，即不满足完全函数依赖。<br>改为：</p>
-<p><strong>学生表</strong><br>|学生编号|学生名称|所在班级|班主任|<br>|:–:|:–:|:–:|:–:|<br>|S1|小王|计算机3班|陈老师|<br>|S2|小马|软件1班|李老师|</p>
-<p><strong>课程表</strong><br>|课程编号|课程名称|<br>|:–:|:–:|<br>|C1|计算机导论|<br>|C2|数据结构|</p>
-<p><strong>学生课程关系表</strong><br>|学生编号|课程编号|<br>|:–:|:–:|<br>|S1|C1|<br>|S1|C2|<br>|S2|C1|</p>
+<p><strong>学生表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">学生编号</th>
+<th style="text-align:center">学生名称</th>
+<th style="text-align:center">所在班级</th>
+<th style="text-align:center">班主任</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">S1</td>
+<td style="text-align:center">小王</td>
+<td style="text-align:center">计算机3班</td>
+<td style="text-align:center">陈老师</td>
+</tr>
+<tr>
+<td style="text-align:center">S2</td>
+<td style="text-align:center">小马</td>
+<td style="text-align:center">软件1班</td>
+<td style="text-align:center">李老师</td>
+</tr>
+</tbody>
+</table>
+<p><strong>课程表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">课程编号</th>
+<th style="text-align:center">课程名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">C1</td>
+<td style="text-align:center">计算机导论</td>
+</tr>
+<tr>
+<td style="text-align:center">C2</td>
+<td style="text-align:center">数据结构</td>
+</tr>
+</tbody>
+</table>
+<p><strong>学生课程关系表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">学生编号</th>
+<th style="text-align:center">课程编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">S1</td>
+<td style="text-align:center">C1</td>
+</tr>
+<tr>
+<td style="text-align:center">S1</td>
+<td style="text-align:center">C2</td>
+</tr>
+<tr>
+<td style="text-align:center">S2</td>
+<td style="text-align:center">C1</td>
+</tr>
+</tbody>
+</table>
 <p><strong>好处</strong>：</p>
 <ul>
 <li>相对节约空间，当学生表和课程表属性越多，效果越明显</li>
@@ -344,10 +486,73 @@
 <li>解决删除异常，当学生学完一门课，原表若要清空学生上课信息，课程编号与课程名称的关系可能会丢失</li>
 </ul>
 <h3 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h3><p>任何非主属性不依赖于其它非主属性，即消除<code>非主属性</code>之间的<code>传递函数依赖</code>（在2NF基础上）。<br>传递函数依赖：有属性集X，Y，Z，$X \Rightarrow Y，X \not\subset Y，Y \nRightarrow X，( X \bigcup Y ) \bigcap    Z = \emptyset，Y \Rightarrow Z$，则Z传递函数依赖于X。<br>例如：</p>
-<p><strong>学生表</strong><br>|学生编号|学生名称|所在班级|班主任|<br>|:–:|:–:|:–:|:–:|<br>|S1|小王|计算机3班|陈老师|<br>|S2|小马|软件1班|李老师|</p>
-<p>学生编号作为主键满足第二范式（2NF）。通过学生编号 $\implies$ 所在班级 $\implies$ 班主任，所以班级和班主任之间存在依赖关系。<br>改为：</p>
-<p><strong>学生表</strong><br>|学生编号|学生名称|所在班级|<br>|:–:|:–:|:–:|<br>|S1|小王|计算机3班|<br>|S2|小马|软件1班|</p>
-<p><strong>班级表</strong><br>|所在班级|班主任|<br>|:–:|:–:|<br>|计算机3班|陈老师|<br>|软件1班|李老师|</p>
+<p><strong>学生表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">学生编号</th>
+<th style="text-align:center">学生名称</th>
+<th style="text-align:center">所在班级</th>
+<th style="text-align:center">班主任</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">S1</td>
+<td style="text-align:center">小王</td>
+<td style="text-align:center">计算机3班</td>
+<td style="text-align:center">陈老师</td>
+</tr>
+<tr>
+<td style="text-align:center">S2</td>
+<td style="text-align:center">小马</td>
+<td style="text-align:center">软件1班</td>
+<td style="text-align:center">李老师</td>
+</tr>
+</tbody>
+</table>
+<p>学生编号作为主键满足第二范式（2NF）。通过学生编号 $\Rightarrow$ 所在班级 $\Rightarrow$ 班主任，所以班级和班主任之间存在依赖关系。<br>改为：</p>
+<p><strong>学生表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">学生编号</th>
+<th style="text-align:center">学生名称</th>
+<th style="text-align:center">所在班级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">S1</td>
+<td style="text-align:center">小王</td>
+<td style="text-align:center">计算机3班</td>
+</tr>
+<tr>
+<td style="text-align:center">S2</td>
+<td style="text-align:center">小马</td>
+<td style="text-align:center">软件1班</td>
+</tr>
+</tbody>
+</table>
+<p><strong>班级表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">所在班级</th>
+<th style="text-align:center">班主任</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">计算机3班</td>
+<td style="text-align:center">陈老师</td>
+</tr>
+<tr>
+<td style="text-align:center">软件1班</td>
+<td style="text-align:center">李老师</td>
+</tr>
+</tbody>
+</table>
 <p><strong>好处</strong>：</p>
 <ul>
 <li>相对节约空间</li>
@@ -356,7 +561,37 @@
 <li>解决删除异常，当学生毕业后，若要清空学生信息，班级和老师的关系可能会丢失</li>
 </ul>
 <h3 id="巴斯-科德范式（BCNF）"><a href="#巴斯-科德范式（BCNF）" class="headerlink" title="巴斯-科德范式（BCNF）"></a>巴斯-科德范式（BCNF）</h3><p>在3NF基础上，消除<code>主属性</code>之间的<code>传递函数依赖</code>。<br>例如：</p>
-<p><strong>配件表</strong><br>|仓库号|配件号|职工号|配件数量|<br>|:–:|:–:|:–:|:–:|<br>|W1|P1|E1|10|<br>|W1|P2|E1|10|<br>|W2|P1|E2|20|</p>
+<p><strong>配件表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">仓库号</th>
+<th style="text-align:center">配件号</th>
+<th style="text-align:center">职工号</th>
+<th style="text-align:center">配件数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">W1</td>
+<td style="text-align:center">P1</td>
+<td style="text-align:center">E1</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">W1</td>
+<td style="text-align:center">P2</td>
+<td style="text-align:center">E1</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">W2</td>
+<td style="text-align:center">P1</td>
+<td style="text-align:center">E2</td>
+<td style="text-align:center">20</td>
+</tr>
+</tbody>
+</table>
 <p>有以下约束：</p>
 <ul>
 <li>一个仓库有多个职工</li>
@@ -364,21 +599,202 @@
 <li>一种配件可以放多个仓库</li>
 <li>一个仓库，一个职工管理多个配件，一种配件由唯一一个职工管理</li>
 </ul>
-<p>由此，将（仓库号，配件号）作为主键，满足3NF，但是（仓库号，配件号）$\implies$ 职工号 $\implies$ 仓库号，造成传递函数依赖。<br>改为：</p>
-<p><strong>仓库表</strong><br>|仓库号|职工号|<br>|:–:|:–:|<br>|W1|E1|<br>|W2|E2|</p>
-<p><strong>工作表</strong><br>|职工号|配件号|配件数量|<br>|:–:|:–:|:–:|<br>|E1|P1|10|<br>|E1|P2|10|<br>|E2|P1|20|</p>
-<p><strong>好处</strong>：解决一些冗余和一些异常情况<br><strong>不足</strong>：丢失一些函数依赖，如丢失（仓库号，配件号）$\implies$ 职工号，无法通过单表来确定一个职工号</p>
+<p>由此，将（仓库号，配件号）作为主键，满足3NF，但是（仓库号，配件号）$\Rightarrow$ 职工号 $\Rightarrow$ 仓库号，造成传递函数依赖。<br>改为：</p>
+<p><strong>仓库表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">仓库号</th>
+<th style="text-align:center">职工号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">W1</td>
+<td style="text-align:center">E1</td>
+</tr>
+<tr>
+<td style="text-align:center">W2</td>
+<td style="text-align:center">E2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>工作表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">职工号</th>
+<th style="text-align:center">配件号</th>
+<th style="text-align:center">配件数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">E1</td>
+<td style="text-align:center">P1</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">E1</td>
+<td style="text-align:center">P2</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">E2</td>
+<td style="text-align:center">P1</td>
+<td style="text-align:center">20</td>
+</tr>
+</tbody>
+</table>
+<p><strong>好处</strong>：解决一些冗余和一些异常情况<br><strong>不足</strong>：丢失一些函数依赖，如丢失（仓库号，配件号）$\Rightarrow$ 职工号，无法通过单表来确定一个职工号</p>
 <h3 id="第四范式（4NF）"><a href="#第四范式（4NF）" class="headerlink" title="第四范式（4NF）"></a>第四范式（4NF）</h3><p>当一个表中非主属性相互独立时（即在3NF基础上），这些非主属性不应该有<code>多值</code>。<br>例如：</p>
-<p><strong>客户联系方式</strong><br>|客户编号|固定电话|移动电话|<br>|:–:|:–:|:–:|<br>|10|88-123|151|<br>|10|80-123|183|</p>
+<p><strong>客户联系方式</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">客户编号</th>
+<th style="text-align:center">固定电话</th>
+<th style="text-align:center">移动电话</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">88-123</td>
+<td style="text-align:center">151</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">80-123</td>
+<td style="text-align:center">183</td>
+</tr>
+</tbody>
+</table>
 <p>一个用户拥有多个固定电话和移动电话，给表的维护带来很多麻烦。比如增加一个固定电话，那么移动电话这一栏要如何处理，选择一个已有的移动电话？还是直接为空值？<br>改为：</p>
-<p><strong>客户电话表</strong><br>|客户编号|电话号码|电话类型|<br>|:–:|:–:|:–:|<br>|10|88-123|固定电话|<br>|10|80-123|固定电话|<br>|10|151|移动电话|<br>|10|183|移动电话|</p>
+<p><strong>客户电话表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">客户编号</th>
+<th style="text-align:center">电话号码</th>
+<th style="text-align:center">电话类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">88-123</td>
+<td style="text-align:center">固定电话</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">80-123</td>
+<td style="text-align:center">固定电话</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">151</td>
+<td style="text-align:center">移动电话</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">183</td>
+<td style="text-align:center">移动电话</td>
+</tr>
+</tbody>
+</table>
 <p><strong>好处</strong>：解决一些异常，使表结构更加合理</p>
 <h3 id="第五范式（5NF）"><a href="#第五范式（5NF）" class="headerlink" title="第五范式（5NF）"></a>第五范式（5NF）</h3><p>在关系模式R中，每一个<code>连接依赖</code>均有R的<code>候选码</code>所隐含。即，连接时，所连接的属性都是候选码。<br>例如：</p>
-<p><strong>销售表</strong><br>|销售人员|供应商|产品|<br>|:–:|:–:|:–:|<br>|S1|V1|P1|<br>|S2|V2|P2|<br>|S1|V1|P1|<br>|S2|V2|P2|</p>
+<p><strong>销售表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">销售人员</th>
+<th style="text-align:center">供应商</th>
+<th style="text-align:center">产品</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">S1</td>
+<td style="text-align:center">V1</td>
+<td style="text-align:center">P1</td>
+</tr>
+<tr>
+<td style="text-align:center">S2</td>
+<td style="text-align:center">V2</td>
+<td style="text-align:center">P2</td>
+</tr>
+<tr>
+<td style="text-align:center">S1</td>
+<td style="text-align:center">V1</td>
+<td style="text-align:center">P1</td>
+</tr>
+<tr>
+<td style="text-align:center">S2</td>
+<td style="text-align:center">V2</td>
+<td style="text-align:center">P2</td>
+</tr>
+</tbody>
+</table>
 <p>要想找到某一条数据，必须以（销售人员，供应商，产品）为主键。<br>改为：</p>
-<p><strong>销售人员_供应商表</strong><br>|销售人员|供应商|<br>|:–:|:–:|<br>|S1|V1|<br>|S2|V2|</p>
-<p><strong>销售人员_产品表</strong><br>|销售人员|产品|<br>|:–:|:–:|<br>|S1|P1|<br>|S2|P2|</p>
-<p><strong>供应商_产品表</strong><br>|供应商|产品|<br>|:–:|:–:|<br>|V1|P1|<br>|V2|P2|</p>
+<p><strong>销售人员_供应商表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">销售人员</th>
+<th style="text-align:center">供应商</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">S1</td>
+<td style="text-align:center">V1</td>
+</tr>
+<tr>
+<td style="text-align:center">S2</td>
+<td style="text-align:center">V2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>销售人员_产品表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">销售人员</th>
+<th style="text-align:center">产品</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">S1</td>
+<td style="text-align:center">P1</td>
+</tr>
+<tr>
+<td style="text-align:center">S2</td>
+<td style="text-align:center">P2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>供应商_产品表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">供应商</th>
+<th style="text-align:center">产品</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">V1</td>
+<td style="text-align:center">P1</td>
+</tr>
+<tr>
+<td style="text-align:center">V2</td>
+<td style="text-align:center">P2</td>
+</tr>
+</tbody>
+</table>
 <p><strong>好处</strong>：解决某些异常操作</p>
 
       
@@ -652,6 +1068,26 @@
   
 
   
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
   
 
