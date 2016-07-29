@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="blog">
 <meta property="og:description" content="通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，选择一个满足需求的，合理的结构。
 目前关系数据库有六种范式：1NF，2NF，3NF，BCNF，4NF，5NF。">
-<meta property="og:updated_time" content="2016-07-28T08:51:51.253Z">
+<meta property="og:updated_time" content="2016-07-29T15:54:35.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库范式（关系型数据库）">
 <meta name="twitter:description" content="通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，选择一个满足需求的，合理的结构。
@@ -485,7 +485,7 @@
 <li>解决更新繁琐，当更改一门课程名称时，原表要更改多条数据</li>
 <li>解决删除异常，当学生学完一门课，原表若要清空学生上课信息，课程编号与课程名称的关系可能会丢失</li>
 </ul>
-<h3 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h3><p>任何非主属性不依赖于其它非主属性，即消除<code>非主属性</code>之间的<code>传递函数依赖</code>（在2NF基础上）。<br>传递函数依赖：有属性集X，Y，Z，$X \Rightarrow Y，X \not\subset Y，Y \nRightarrow X，( X \bigcup Y ) \bigcap    Z = \emptyset，Y \Rightarrow Z$，则Z传递函数依赖于X。<br>例如：</p>
+<h3 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h3><p>任何非主属性不依赖于其它非主属性，即消除<code>传递函数依赖</code>（在2NF基础上）。<br>传递函数依赖：有属性集X，Y，Z，$X \Rightarrow Y，X \not\subset Y，Y \nRightarrow X，( X \bigcup Y ) \bigcap    Z = \emptyset，Y \Rightarrow Z$，则Z传递函数依赖于X。<br>例如：</p>
 <p><strong>学生表</strong></p>
 <table>
 <thead>
