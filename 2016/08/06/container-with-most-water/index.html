@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LeetCode,Greedy," />
+  <meta name="keywords" content="LeetCode,Array," />
 
 
 
@@ -84,22 +84,18 @@
 
 
 
-<meta name="description" content="Say you have an array for which the $i^{th}$ element is the price of a given stock on day $i$. 
-Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, b">
+<meta name="description" content="Given n non-negative integers a1, a2, ..., an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Best Time to Buy and Sell Stock II">
-<meta property="og:url" content="denglyan.github.io/2016/08/03/best-time-to-buy-and-sell-stock-ii/index.html">
+<meta property="og:title" content="Container with Most Water">
+<meta property="og:url" content="denglyan.github.io/2016/08/06/container-with-most-water/index.html">
 <meta property="og:site_name" content="NOTE">
-<meta property="og:description" content="Say you have an array for which the $i^{th}$ element is the price of a given stock on day $i$. 
-Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, b">
-<meta property="og:image" content="denglyan.github.io/images/best-time-to-buy-and-sell-stock-ii-1.png">
-<meta property="og:image" content="denglyan.github.io/images/best-time-to-buy-and-sell-stock-ii-2.png">
-<meta property="og:updated_time" content="2016-08-05T07:53:11.275Z">
+<meta property="og:description" content="Given n non-negative integers a1, a2, ..., an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two">
+<meta property="og:image" content="denglyan.github.io/images/container-with-most-water.png">
+<meta property="og:updated_time" content="2016-08-06T07:54:13.089Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Best Time to Buy and Sell Stock II">
-<meta name="twitter:description" content="Say you have an array for which the $i^{th}$ element is the price of a given stock on day $i$. 
-Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, b">
-<meta name="twitter:image" content="denglyan.github.io/images/best-time-to-buy-and-sell-stock-ii-1.png">
+<meta name="twitter:title" content="Container with Most Water">
+<meta name="twitter:description" content="Given n non-negative integers a1, a2, ..., an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two">
+<meta name="twitter:image" content="denglyan.github.io/images/container-with-most-water.png">
 
 
 
@@ -120,9 +116,9 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 
 
 
-  <link rel="canonical" href="denglyan.github.io/2016/08/03/best-time-to-buy-and-sell-stock-ii/"/>
+  <link rel="canonical" href="denglyan.github.io/2016/08/06/container-with-most-water/"/>
 
-  <title> Best Time to Buy and Sell Stock II | NOTE </title>
+  <title> Container with Most Water | NOTE </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -252,7 +248,7 @@ Design an algorithm to find the maximum profit. You may complete as many transac
             
             
               
-                Best Time to Buy and Sell Stock II
+                Container with Most Water
               
             
           </h1>
@@ -264,8 +260,8 @@ Design an algorithm to find the maximum profit. You may complete as many transac
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-03T14:20:00+08:00" content="2016-08-03">
-              2016-08-03
+            <time itemprop="dateCreated" datetime="2016-08-06T15:50:00+08:00" content="2016-08-06">
+              2016-08-06
             </time>
           </span>
 
@@ -290,8 +286,8 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/LeetCode/Greedy/" itemprop="url" rel="index">
-                    <span itemprop="name">Greedy</span>
+                  <a href="/categories/LeetCode/Array/" itemprop="url" rel="index">
+                    <span itemprop="name">Array</span>
                   </a>
                 </span>
 
@@ -321,17 +317,14 @@ Design an algorithm to find the maximum profit. You may complete as many transac
       
 
       
-        <p>Say you have an array for which the $i^{th}$ element is the price of a given stock on day $i$. </p>
-<p>Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times). However, you may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again). </p>
+        <p>Given <code>n</code> non-negative integers <code>a1, a2, ..., an</code>, where each represents a point at coordinate <code>(i, ai)</code>. <code>n</code> vertical lines are drawn such that the two endpoints of line <code>i</code> is at <code>(i, ai)</code> and <code>(i, 0)</code>. Find two lines, which together with x-axis forms a container, such that the container contains the most water. </p>
+<p>Note: You may not slant the container. </p>
 <a id="more"></a>
-<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>有一个整形数组，第i个元素代表第i天的股票价格。现要求设计一个算法，使得获得的盈利最大。买进股票后，必须卖出，才能继续买进。</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>要想利润最大，即最低时买进，最高时卖出<br>$$Total\,Profit = \sum_{i}(height(peak_i)-height(valley_i))$$</p>
-<div align="center"><img src="/images/best-time-to-buy-and-sell-stock-ii-1.png" width="300" height="300"></div>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>给定n个非负整数，每个数表示坐标上的一个点，每个点与x轴垂直画一条线，任选两条线与x轴组成一个容器，使容器能装的水最多。注意：容器不能倾斜。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>一个容器所能装的水取决于最短一边的高度，即<code>width * min(height[l] , height[r])</code>，假设 l 在最左边， r 在最右边，height[l] &lt; height[r]，那么当 r 向左移（向l靠近）时，height不可能超过height[l]，且width不断减少，所以 r 向左移没有判断的必要。只能 l 向右移（向 r 靠近），直到height[l] &gt;= height[r]时，对象由 l 变成 r 。在过程中， l 与 r 只能互相靠近，因为远离的行为在之前靠近时已经判断过了。</p>
+<div align="center"><img src="/images/container-with-most-water.png" width="300" height="300"></div>
 
-<p>具体观察可发现，峰值减去谷值，也就是递增段的和，如A + B + C</p>
-<div align="center"><img src="/images/best-time-to-buy-and-sell-stock-ii-2.png" width="300" height="300"></div>
-
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>, n = prices.length, k;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            k = prices[i] - prices[i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (k &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                sum += k;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>, n = height.length;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (l &lt; r) &#123;</span><br><span class="line">            <span class="keyword">int</span> h = Math.min(height[l], height[r]);</span><br><span class="line">            <span class="keyword">int</span> w = r - l;</span><br><span class="line">            <span class="keyword">int</span> area = h * w;</span><br><span class="line">            <span class="keyword">if</span> (max &lt; area) &#123;</span><br><span class="line">                max = area;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (height[l] &lt; height[r]) &#123;</span><br><span class="line">                l++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                r--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -355,7 +348,7 @@ Design an algorithm to find the maximum profit. You may complete as many transac
           
             <a href="/tags/LeetCode/" rel="tag">#LeetCode</a>
           
-            <a href="/tags/Greedy/" rel="tag">#Greedy</a>
+            <a href="/tags/Array/" rel="tag">#Array</a>
           
         </div>
       
@@ -364,17 +357,13 @@ Design an algorithm to find the maximum profit. You may complete as many transac
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/28/database-normalization-relational/" rel="next" title="数据库范式（关系型数据库）">
-                <i class="fa fa-chevron-left"></i> 数据库范式（关系型数据库）
+              <a href="/2016/08/05/maximum-subarray/" rel="next" title="Maximum Subarray">
+                <i class="fa fa-chevron-left"></i> Maximum Subarray
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/05/rotate-image/" rel="prev" title="Rotate Image">
-                Rotate Image <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
