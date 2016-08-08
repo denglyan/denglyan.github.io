@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LeetCode,Linked List," />
+  <meta name="keywords" content="LeetCode,Tree,Depth-first Search," />
 
 
 
@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="Given a linked list, determine if it has a cycle in it. 
-Follow up: Can you solve it without using extra space?">
+<meta name="description" content="Given a binary tree, determine if it is height-balanced. 
+For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linked List Cycle">
-<meta property="og:url" content="denglyan.github.io/2016/08/05/linked-list-cycle/index.html">
+<meta property="og:title" content="Balanced Binary Tree">
+<meta property="og:url" content="denglyan.github.io/2016/08/08/balanced-binary-tree/index.html">
 <meta property="og:site_name" content="NOTE">
-<meta property="og:description" content="Given a linked list, determine if it has a cycle in it. 
-Follow up: Can you solve it without using extra space?">
-<meta property="og:updated_time" content="2016-08-05T03:25:16.232Z">
+<meta property="og:description" content="Given a binary tree, determine if it is height-balanced. 
+For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ">
+<meta property="og:updated_time" content="2016-08-08T15:57:50.924Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linked List Cycle">
-<meta name="twitter:description" content="Given a linked list, determine if it has a cycle in it. 
-Follow up: Can you solve it without using extra space?">
+<meta name="twitter:title" content="Balanced Binary Tree">
+<meta name="twitter:description" content="Given a binary tree, determine if it is height-balanced. 
+For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ">
 
 
 
@@ -117,9 +117,9 @@ Follow up: Can you solve it without using extra space?">
 
 
 
-  <link rel="canonical" href="denglyan.github.io/2016/08/05/linked-list-cycle/"/>
+  <link rel="canonical" href="denglyan.github.io/2016/08/08/balanced-binary-tree/"/>
 
-  <title> Linked List Cycle | NOTE </title>
+  <title> Balanced Binary Tree | NOTE </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -249,7 +249,7 @@ Follow up: Can you solve it without using extra space?">
             
             
               
-                Linked List Cycle
+                Balanced Binary Tree
               
             
           </h1>
@@ -261,8 +261,8 @@ Follow up: Can you solve it without using extra space?">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-05T11:30:00+08:00" content="2016-08-05">
-              2016-08-05
+            <time itemprop="dateCreated" datetime="2016-08-08T17:00:00+08:00" content="2016-08-08">
+              2016-08-08
             </time>
           </span>
 
@@ -287,8 +287,20 @@ Follow up: Can you solve it without using extra space?">
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/LeetCode/Linked-List/" itemprop="url" rel="index">
-                    <span itemprop="name">Linked List</span>
+                  <a href="/categories/LeetCode/Tree/" itemprop="url" rel="index">
+                    <span itemprop="name">Tree</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/LeetCode/Tree/Depth-first-Search/" itemprop="url" rel="index">
+                    <span itemprop="name">Depth-first Search</span>
                   </a>
                 </span>
 
@@ -318,12 +330,13 @@ Follow up: Can you solve it without using extra space?">
       
 
       
-        <p>Given a linked list, determine if it has a cycle in it. </p>
-<p><strong>Follow up:</strong><br> Can you solve it without using extra space? </p>
- <a id="more"></a>
-<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>判断一个链表是否是环，并且不能使用额外空间。</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>设计一个快指针和一个慢指针，快指针每次走两步，慢指针每次走一步，若两个指针相遇，且指针不为空，则存在环。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * class ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode next;</span><br><span class="line"> *     ListNode(int x) &#123;</span><br><span class="line"> *         val = x;</span><br><span class="line"> *         next = null;</span><br><span class="line"> *     &#125;</span><br><span class="line"> * &#125;</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        ListNode fast, slow;</span><br><span class="line">        fast = slow = head;</span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            <span class="keyword">if</span> (fast == slow) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>Given a binary tree, determine if it is height-balanced. </p>
+<p>For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1. </p>
+<a id="more"></a>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>给出一棵二叉树，判断是否为平衡二叉树。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>在求二叉树深度的过程中，判断左右子树是否满足。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><strong>递归：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Definition for binary tree</span><br><span class="line"> * public class TreeNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     TreeNode left;</span><br><span class="line"> *     TreeNode right;</span><br><span class="line"> *     TreeNode(int x) &#123; val = x; &#125;</span><br><span class="line"> * &#125;</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBalanced</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> height(root) != -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">height</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> l = height(root.left);</span><br><span class="line">        <span class="keyword">int</span> r = height(root.right);</span><br><span class="line">        <span class="keyword">if</span> (Math.abs(l - r) &gt; <span class="number">1</span> || l == -<span class="number">1</span> || r == -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> Math.max(l, r)+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -347,7 +360,9 @@ Follow up: Can you solve it without using extra space?">
           
             <a href="/tags/LeetCode/" rel="tag">#LeetCode</a>
           
-            <a href="/tags/Linked-List/" rel="tag">#Linked List</a>
+            <a href="/tags/Tree/" rel="tag">#Tree</a>
+          
+            <a href="/tags/Depth-first-Search/" rel="tag">#Depth-first Search</a>
           
         </div>
       
@@ -356,16 +371,16 @@ Follow up: Can you solve it without using extra space?">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/05/rotate-image/" rel="next" title="Rotate Image">
-                <i class="fa fa-chevron-left"></i> Rotate Image
+              <a href="/2016/08/08/binary-tree-inorder-traversal/" rel="next" title="Binary Tree Inorder Traversal">
+                <i class="fa fa-chevron-left"></i> Binary Tree Inorder Traversal
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/05/maximum-subarray/" rel="prev" title="Maximum Subarray">
-                Maximum Subarray <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/08/unique-binary-search-trees/" rel="prev" title="Unique Binary Search Trees">
+                Unique Binary Search Trees <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

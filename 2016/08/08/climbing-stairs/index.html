@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LeetCode,Linked List," />
+  <meta name="keywords" content="LeetCode,Dynamic Programming," />
 
 
 
@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="Given a linked list, determine if it has a cycle in it. 
-Follow up: Can you solve it without using extra space?">
+<meta name="description" content="You are climbing a stair case. It takes n steps to reach to the top.
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linked List Cycle">
-<meta property="og:url" content="denglyan.github.io/2016/08/05/linked-list-cycle/index.html">
+<meta property="og:title" content="Climbing Stairs">
+<meta property="og:url" content="denglyan.github.io/2016/08/08/climbing-stairs/index.html">
 <meta property="og:site_name" content="NOTE">
-<meta property="og:description" content="Given a linked list, determine if it has a cycle in it. 
-Follow up: Can you solve it without using extra space?">
-<meta property="og:updated_time" content="2016-08-05T03:25:16.232Z">
+<meta property="og:description" content="You are climbing a stair case. It takes n steps to reach to the top.
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?">
+<meta property="og:updated_time" content="2016-08-08T01:47:43.985Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linked List Cycle">
-<meta name="twitter:description" content="Given a linked list, determine if it has a cycle in it. 
-Follow up: Can you solve it without using extra space?">
+<meta name="twitter:title" content="Climbing Stairs">
+<meta name="twitter:description" content="You are climbing a stair case. It takes n steps to reach to the top.
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?">
 
 
 
@@ -117,9 +117,9 @@ Follow up: Can you solve it without using extra space?">
 
 
 
-  <link rel="canonical" href="denglyan.github.io/2016/08/05/linked-list-cycle/"/>
+  <link rel="canonical" href="denglyan.github.io/2016/08/08/climbing-stairs/"/>
 
-  <title> Linked List Cycle | NOTE </title>
+  <title> Climbing Stairs | NOTE </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -249,7 +249,7 @@ Follow up: Can you solve it without using extra space?">
             
             
               
-                Linked List Cycle
+                Climbing Stairs
               
             
           </h1>
@@ -261,8 +261,8 @@ Follow up: Can you solve it without using extra space?">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-05T11:30:00+08:00" content="2016-08-05">
-              2016-08-05
+            <time itemprop="dateCreated" datetime="2016-08-08T09:50:00+08:00" content="2016-08-08">
+              2016-08-08
             </time>
           </span>
 
@@ -287,8 +287,8 @@ Follow up: Can you solve it without using extra space?">
 
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/LeetCode/Linked-List/" itemprop="url" rel="index">
-                    <span itemprop="name">Linked List</span>
+                  <a href="/categories/LeetCode/Dynamic-Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Dynamic Programming</span>
                   </a>
                 </span>
 
@@ -318,12 +318,12 @@ Follow up: Can you solve it without using extra space?">
       
 
       
-        <p>Given a linked list, determine if it has a cycle in it. </p>
-<p><strong>Follow up:</strong><br> Can you solve it without using extra space? </p>
- <a id="more"></a>
-<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>判断一个链表是否是环，并且不能使用额外空间。</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>设计一个快指针和一个慢指针，快指针每次走两步，慢指针每次走一步，若两个指针相遇，且指针不为空，则存在环。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * class ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode next;</span><br><span class="line"> *     ListNode(int x) &#123;</span><br><span class="line"> *         val = x;</span><br><span class="line"> *         next = null;</span><br><span class="line"> *     &#125;</span><br><span class="line"> * &#125;</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        ListNode fast, slow;</span><br><span class="line">        fast = slow = head;</span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            <span class="keyword">if</span> (fast == slow) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>You are climbing a stair case. It takes n steps to reach to the top.</p>
+<p>Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top? </p>
+<a id="more"></a>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>n步的楼梯，每次只能爬1步或者2步，问有多少种爬的方式。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>假设爬 k 步有 s[k] 种方法，爬 k-1 步有 s[k-1] 种方法，爬 k-2 步有 s[k-2] 种方法。因为每次只能爬 1 步或者 2 步，所以很明显爬 k 步相当于爬 k-1 步后再多爬 1 步，或者爬 k-2 步后再多爬 2 步，即状态转移方程： <code>s[k] = s[k-1] + s[k-2]</code></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> n1 = <span class="number">1</span>, n2 = <span class="number">2</span>, t = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> n1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (t &lt; n) &#123;</span><br><span class="line">            <span class="keyword">int</span> k = n1 + n2;</span><br><span class="line">            n1 = n2;</span><br><span class="line">            n2 = k;</span><br><span class="line">            t++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> n2;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -347,7 +347,7 @@ Follow up: Can you solve it without using extra space?">
           
             <a href="/tags/LeetCode/" rel="tag">#LeetCode</a>
           
-            <a href="/tags/Linked-List/" rel="tag">#Linked List</a>
+            <a href="/tags/Dynamic-Programming/" rel="tag">#Dynamic Programming</a>
           
         </div>
       
@@ -356,16 +356,16 @@ Follow up: Can you solve it without using extra space?">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/05/rotate-image/" rel="next" title="Rotate Image">
-                <i class="fa fa-chevron-left"></i> Rotate Image
+              <a href="/2016/08/07/set-matrix-zeroes/" rel="next" title="Set Matrix Zeroes">
+                <i class="fa fa-chevron-left"></i> Set Matrix Zeroes
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/05/maximum-subarray/" rel="prev" title="Maximum Subarray">
-                Maximum Subarray <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/08/binary-tree-inorder-traversal/" rel="prev" title="Binary Tree Inorder Traversal">
+                Binary Tree Inorder Traversal <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
