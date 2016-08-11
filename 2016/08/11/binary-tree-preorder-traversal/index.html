@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LeetCode,Tree,Dynamic Programming," />
+  <meta name="keywords" content="LeetCode,Tree," />
 
 
 
@@ -84,21 +84,19 @@
 
 
 
-<meta name="description" content="Given n, how many structurally unique BST’s (binary search trees) that store values 1…n?
-For example,Given n = 3, there are a total of 5 unique BST’s.">
+<meta name="description" content="Given a binary tree, return the preorder traversal of its nodes’ values.
+Note: Recursive solution is trivial, could you do it iteratively?">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unique Binary Search Trees">
-<meta property="og:url" content="denglyan.github.io/2016/08/08/unique-binary-search-trees/index.html">
+<meta property="og:title" content="Binary Tree Preorder Traversal">
+<meta property="og:url" content="denglyan.github.io/2016/08/11/binary-tree-preorder-traversal/index.html">
 <meta property="og:site_name" content="NOTE">
-<meta property="og:description" content="Given n, how many structurally unique BST’s (binary search trees) that store values 1…n?
-For example,Given n = 3, there are a total of 5 unique BST’s.">
-<meta property="og:image" content="denglyan.github.io/images/unique-binary-search-trees.png">
-<meta property="og:updated_time" content="2016-08-08T17:08:35.878Z">
+<meta property="og:description" content="Given a binary tree, return the preorder traversal of its nodes’ values.
+Note: Recursive solution is trivial, could you do it iteratively?">
+<meta property="og:updated_time" content="2016-08-11T05:58:41.785Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unique Binary Search Trees">
-<meta name="twitter:description" content="Given n, how many structurally unique BST’s (binary search trees) that store values 1…n?
-For example,Given n = 3, there are a total of 5 unique BST’s.">
-<meta name="twitter:image" content="denglyan.github.io/images/unique-binary-search-trees.png">
+<meta name="twitter:title" content="Binary Tree Preorder Traversal">
+<meta name="twitter:description" content="Given a binary tree, return the preorder traversal of its nodes’ values.
+Note: Recursive solution is trivial, could you do it iteratively?">
 
 
 
@@ -119,9 +117,9 @@ For example,Given n = 3, there are a total of 5 unique BST’s.">
 
 
 
-  <link rel="canonical" href="denglyan.github.io/2016/08/08/unique-binary-search-trees/"/>
+  <link rel="canonical" href="denglyan.github.io/2016/08/11/binary-tree-preorder-traversal/"/>
 
-  <title> Unique Binary Search Trees | NOTE </title>
+  <title> Binary Tree Preorder Traversal | NOTE </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -251,7 +249,7 @@ For example,Given n = 3, there are a total of 5 unique BST’s.">
             
             
               
-                Unique Binary Search Trees
+                Binary Tree Preorder Traversal
               
             
           </h1>
@@ -263,8 +261,8 @@ For example,Given n = 3, there are a total of 5 unique BST’s.">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-08T23:50:00+08:00" content="2016-08-08">
-              2016-08-08
+            <time itemprop="dateCreated" datetime="2016-08-11T14:00:00+08:00" content="2016-08-11">
+              2016-08-11
             </time>
           </span>
 
@@ -296,18 +294,6 @@ For example,Given n = 3, there are a total of 5 unique BST’s.">
 
                 
                 
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/LeetCode/Tree/Dynamic-Programming/" itemprop="url" rel="index">
-                    <span itemprop="name">Dynamic Programming</span>
-                  </a>
-                </span>
-
-                
-                
 
               
             </span>
@@ -332,24 +318,15 @@ For example,Given n = 3, there are a total of 5 unique BST’s.">
       
 
       
-        <p>Given n, how many structurally unique BST’s (binary search trees) that store values 1…n?</p>
-<p>For example,<br>Given n = 3, there are a total of 5 unique BST’s. </p>
+        <p>Given a binary tree, return the preorder traversal of its nodes’ values.</p>
+<p>Note: Recursive solution is trivial, could you do it iteratively?</p>
 <a id="more"></a>
-<div align="center"><img src="/images/unique-binary-search-trees.png" width="300" height="300"></div>
-
-<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>给出一个n，能组成多少种不同的二叉搜索树。</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>假设n个结点，任选其中1个结点为根，所可行的二叉搜索树的数量等于左右子树二叉搜索树数量的乘积。<br>例如：</p>
-<ul>
-<li>n=0 , h(0)=1</li>
-<li>n=1 , h(1)=1</li>
-<li>n=2 , h(2)=h(0)h(1) + h(1)h(0) , 即取一个结点为根结点后，左子树为空，右子树一个结点，或者左子树一个结点，右子树为空</li>
-</ul>
-<p>观察可得，这便是卡特兰数，由此可以推出以下解法：</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>$h(n)=h(0)h(n-1)+h(1)h(n-2)+ \cdots +h(n-1)h(0) \; , \quad h(0)=1 , h(1)=1$<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span>[] catalan = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">        java.util.Arrays.fill(catalan, <span class="number">0</span>);</span><br><span class="line">        catalan[<span class="number">0</span>] = catalan[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">                catalan[i] += (catalan[j] * catalan[i - j - <span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> catalan[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>$h(n)=h(n-1)(4n-2)/(n+1) \; , \quad h(1)=1$</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> catalan = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            catalan = catalan * (<span class="number">4</span> * i - <span class="number">2</span>) / (i + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> catalan;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>$h(n)=C(2n,n)/(n+1)$</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">double</span> catalan = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            catalan = catalan * (<span class="number">2</span> * n - i) / (n - i);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) ((catalan + <span class="number">0.5</span>) / (n + <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>给定一个二叉树，返回前序遍历的值。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>非递归方式主要采取 Stack 来模拟递归。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><strong>递归：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Definition for a binary tree node.</span><br><span class="line"> * public class TreeNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     TreeNode left;</span><br><span class="line"> *     TreeNode right;</span><br><span class="line"> *     TreeNode(int x) &#123; val = x; &#125;</span><br><span class="line"> * &#125;</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="keyword">null</span>) &#123;</span><br><span class="line">            list.add(root.val);</span><br><span class="line">            list.addAll(preorderTraversal(root.left));</span><br><span class="line">            list.addAll(preorderTraversal(root.right));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>非递归：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</span><br><span class="line">        stack.push(root);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!stack.empty()) &#123;</span><br><span class="line"></span><br><span class="line">            TreeNode treeNode = stack.pop();</span><br><span class="line">            list.add(treeNode.val);</span><br><span class="line">            <span class="keyword">if</span> (treeNode.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">                stack.push(treeNode.right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (treeNode.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">                stack.push(treeNode.left);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -375,8 +352,6 @@ For example,Given n = 3, there are a total of 5 unique BST’s.">
           
             <a href="/tags/Tree/" rel="tag">#Tree</a>
           
-            <a href="/tags/Dynamic-Programming/" rel="tag">#Dynamic Programming</a>
-          
         </div>
       
 
@@ -384,17 +359,13 @@ For example,Given n = 3, there are a total of 5 unique BST’s.">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/08/balanced-binary-tree/" rel="next" title="Balanced Binary Tree">
-                <i class="fa fa-chevron-left"></i> Balanced Binary Tree
+              <a href="/2016/08/10/heapsort/" rel="next" title="堆排序">
+                <i class="fa fa-chevron-left"></i> 堆排序
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/09/merge-sorted-array/" rel="prev" title="Merge Sorted Array">
-                Merge Sorted Array <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
