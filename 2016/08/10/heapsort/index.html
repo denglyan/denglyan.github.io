@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="NOTE">
 <meta property="og:description" content="The heapsort algorithm involves preparing the list by first turning it into a max heap. The algorithm then repeatedly swaps the first value of the list with the last value, decreasing the range of val">
 <meta property="og:image" content="denglyan.github.io/images/heapsort.gif">
-<meta property="og:updated_time" content="2016-08-10T05:58:52.127Z">
+<meta property="og:updated_time" content="2016-08-14T07:08:59.963Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="堆排序">
 <meta name="twitter:description" content="The heapsort algorithm involves preparing the list by first turning it into a max heap. The algorithm then repeatedly swaps the first value of the list with the last value, decreasing the range of val">
@@ -341,8 +341,8 @@
 <p>The <strong>buildMaxHeap()</strong> operation is run once, and is $O(n)$ in performance. The <strong>siftDown()</strong> function is $O(log(n))$, and is called $n$ times. Therefore, the performance of this algorithm is $O(n + n * log(n))$ which evaluates to $O(n log n)$.</p>
 <div align="center"><img src="/images/heapsort.gif" width="300" height="300"></div>
 
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>首先将列表变为大根堆，之后将根结点和最后一个叶子结点进行交换，堆大小减一，再维护堆，重复操作，直至大根堆为空，同时列表已经有序。</p>
-<p>这里建堆采用<strong>siftDown()</strong>的方式，从后（最后一个非叶子结点）往前（根结点）遍历，过程中使得每一个子堆都满足要求，直至整个堆满足要求。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>首先将列表变为大根堆，之后将根节点和最后一个叶子节点进行交换，堆大小减一，再维护堆，重复操作，直至大根堆为空，同时列表已经有序。</p>
+<p>这里建堆采用<strong>siftDown()</strong>的方式，从后（最后一个非叶子节点）往前（根节点）遍历，过程中使得每一个子堆都满足要求，直至整个堆满足要求。</p>
 <h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
 <li>基于完全二叉树</li>
 <li>不稳定的排序</li>
@@ -460,7 +460,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
