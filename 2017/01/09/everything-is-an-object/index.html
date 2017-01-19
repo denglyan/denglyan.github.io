@@ -1,0 +1,777 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Study Notes,Thinking in Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="在本章，我们将看到 Java 程序的基本组成部分，并体会到在 Java 中（几乎）一切都是对象。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一切都是对象">
+<meta property="og:url" content="denglyan.github.io/2017/01/09/everything-is-an-object/index.html">
+<meta property="og:site_name" content="NOTE">
+<meta property="og:description" content="在本章，我们将看到 Java 程序的基本组成部分，并体会到在 Java 中（几乎）一切都是对象。">
+<meta property="og:updated_time" content="2017-01-19T17:09:20.103Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一切都是对象">
+<meta name="twitter:description" content="在本章，我们将看到 Java 程序的基本组成部分，并体会到在 Java 中（几乎）一切都是对象。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="denglyan.github.io/2017/01/09/everything-is-an-object/"/>
+
+  <title> 一切都是对象 | NOTE </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">NOTE</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                一切都是对象
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-09T20:40:00+08:00" content="2017-01-09">
+              2017-01-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Study-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Study Notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Study-Notes/Thinking-in-Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Thinking in Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在本章，我们将看到 Java 程序的基本组成部分，并体会到在 Java 中（几乎）一切都是对象。</p>
+<a id="more"></a>
+<h3 id="用引用操纵对象"><a href="#用引用操纵对象" class="headerlink" title="用引用操纵对象"></a>用引用操纵对象</h3><p>尽管一切都看作对象，但操纵的标识符实际上是对象的一个 <code>引用（reference）</code>。可以将这一情形想象成用遥控器（引用）来操纵电视机（对象）。此外，即使没有电视机，遥控器亦可独立存在，也就是说，拥有一个引用，并不一定需要有一个对象与它关联。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String s1;  <span class="comment">//仅仅只创建了一个引用</span></span><br><span class="line"></span><br><span class="line">String s2 = <span class="keyword">new</span> String(<span class="string">"hello"</span>);  <span class="comment">//创建一个引用并与一个新的对象相关联</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="必须由你创建所有对象"><a href="#必须由你创建所有对象" class="headerlink" title="必须由你创建所有对象"></a>必须由你创建所有对象</h3><p>一旦创建了一个引用，就希望它能与一个新的对象相关联，通常用 <code>new</code> 操作符来实现。</p>
+<h4 id="存储到什么地方"><a href="#存储到什么地方" class="headerlink" title="存储到什么地方"></a>存储到什么地方</h4><p>一般有五个不同的地方可以存储数据：</p>
+<ul>
+<li>寄存器：这是最快的存储区，位于处理器内部</li>
+<li>堆栈：速度仅次于寄存器，位于通用 <code>RAM</code>（随机访问存储器）中。存储在堆栈内的所有项必须知道确切的生命周期，一般将对象的引用存储于堆栈中</li>
+<li>堆：一种通用的内存池（也位于 <code>RAM</code> 区），用于存放所有的 Java 对象</li>
+<li>常量存储：一般直接存放于程序代码内部。在嵌入式系统中，可以选择存放在 <code>ROM</code>（只读存储器）中</li>
+<li>非 <code>RAM</code> 存储：数据完全存活于程序之外，例如 <code>流对象</code> 和 <code>持久化对象</code>。在流对象中，对象转化成字节流，发送给另一台机器。在持久化对象中，对象被存放于磁盘上。这种存储方式，可以在需要时，将数据恢复成常规的、基于 <code>RAM</code> 的对象。</li>
+</ul>
+<h4 id="特例：基本类型"><a href="#特例：基本类型" class="headerlink" title="特例：基本类型"></a>特例：基本类型</h4><p>用 <code>new</code> 创建一个对象（特别是小的，简单的变量），往往不是很有效。对于这一系列的类型，称之为基本类型。Java 不用 <code>new</code> 来创建一个并非引用的自动变量，而是直接存储值，并且置于堆栈中。</p>
+<p>Java 要确定每种基本类型所占存储空间的大小，并且不会随着机器硬件架构的变化而变化。这种不变性，也是 Java 编写的程序更具可移植性的原因之一。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">基本类型</th>
+<th style="text-align:center">大小</th>
+<th style="text-align:center">最小值</th>
+<th style="text-align:center">最大值</th>
+<th style="text-align:center">包装器类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$boolean$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$Boolean$</td>
+</tr>
+<tr>
+<td style="text-align:center">$char$</td>
+<td style="text-align:center">$16 \; bits$</td>
+<td style="text-align:center">$Unicode \; 0$</td>
+<td style="text-align:center">$Unicode \; 2^{16}- 1$</td>
+<td style="text-align:center">$Character$</td>
+</tr>
+<tr>
+<td style="text-align:center">$byte$</td>
+<td style="text-align:center">$8 \; bits$</td>
+<td style="text-align:center">$- \; 128$</td>
+<td style="text-align:center">$+ \; 127$</td>
+<td style="text-align:center">$Byte$</td>
+</tr>
+<tr>
+<td style="text-align:center">$short$</td>
+<td style="text-align:center">$16 \; bits$</td>
+<td style="text-align:center">$- \; 2^{15}$</td>
+<td style="text-align:center">$+ \; 2^{15}-1$</td>
+<td style="text-align:center">$Short$</td>
+</tr>
+<tr>
+<td style="text-align:center">$int$</td>
+<td style="text-align:center">$32 \; bits$</td>
+<td style="text-align:center">$- \; 2^{31}$</td>
+<td style="text-align:center">$+ \; 2^{31}-1$</td>
+<td style="text-align:center">$Integer$</td>
+</tr>
+<tr>
+<td style="text-align:center">$long$</td>
+<td style="text-align:center">$64 \; bits$</td>
+<td style="text-align:center">$- \; 2^{63}$</td>
+<td style="text-align:center">$+ \; 2^{63}-1$</td>
+<td style="text-align:center">$Long$</td>
+</tr>
+<tr>
+<td style="text-align:center">$float$</td>
+<td style="text-align:center">$32 \; bits$</td>
+<td style="text-align:center">$IEEE \; 754$</td>
+<td style="text-align:center">$IEEE \; 754$</td>
+<td style="text-align:center">$Float$</td>
+</tr>
+<tr>
+<td style="text-align:center">$double$</td>
+<td style="text-align:center">$64 \; bits$</td>
+<td style="text-align:center">$IEEE \; 754$</td>
+<td style="text-align:center">$IEEE \; 754$</td>
+<td style="text-align:center">$Double$</td>
+</tr>
+<tr>
+<td style="text-align:center">$void$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$-$</td>
+<td style="text-align:center">$Void$</td>
+</tr>
+</tbody>
+</table>
+<p>所有数据类型都有正负号，所以不要去寻找无符号的数据类型。<code>boolean</code> 类型所占存储空间大小没有明确指定，仅定义为能够取字面值 <code>true</code> 或 <code>false</code>。</p>
+<p>基本类型具有包装器类，可以在堆中创建一个非基本对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Character character = <span class="keyword">new</span> Character(<span class="string">'x'</span>);</span><br><span class="line"></span><br><span class="line">Character ch = <span class="string">'X'</span>;  <span class="comment">//自动包装，将基本类型转换成包装器类型</span></span><br><span class="line"><span class="keyword">char</span> c = ch;  <span class="comment">//也可以反向转换</span></span><br></pre></td></tr></table></figure></p>
+<p>Java 提供了两个用于高精度计算的类：<code>BigInteger</code>，<code>BigDecimal</code>。</p>
+<h4 id="Java-中的数组"><a href="#Java-中的数组" class="headerlink" title="Java 中的数组"></a>Java 中的数组</h4><p>当创建一个数组对象时，实际上就是创建了一个引用数组，并且每个引用都会自动被初始化为一个特定的值，该值拥有自己的关键字 <code>null</code>。</p>
+<h3 id="永远不需要销毁对象"><a href="#永远不需要销毁对象" class="headerlink" title="永远不需要销毁对象"></a>永远不需要销毁对象</h3><p>大多数过程型语言都有 <code>作用域（scope）</code>的概念。作用域决定了在其内定义的变量名的可见性和生命周期。尽管以下代码在 C 中是合法的，但是在 Java 中不能这样书写。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">12</span>;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">96</span>;  <span class="comment">// Variable 'x' is already defined in the scope</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在以下代码中，在作用域外无法访问这个对象，但是这个对象仍继续占据内存空间。Java 主要使用 <code>垃圾回收器</code> 来监视用 <code>new</code> 创建的所有对象，并辨别那些不会再被引用的对象。随后，释放这些对象的内存空间，以便供其他新的对象使用。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    String s = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(s);  <span class="comment">//Cannot resolve symbol 's'</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="创建新的数据类型：类"><a href="#创建新的数据类型：类" class="headerlink" title="创建新的数据类型：类"></a>创建新的数据类型：类</h3><p>一旦定义了一个类，就可以在类中设置两种类型的元素：<code>字段</code>（数据成员）和 <code>方法</code>（成员函数）。若类的某个字段是基本数据类型，即使没有进行初始化，Java 也会确保它获得一个默认值。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">基本类型</th>
+<th style="text-align:center">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td style="text-align:center">char</td>
+<td style="text-align:center">‘\u0000’ (null)</td>
+</tr>
+<tr>
+<td style="text-align:center">byte</td>
+<td style="text-align:center">(byte)0</td>
+</tr>
+<tr>
+<td style="text-align:center">short</td>
+<td style="text-align:center">(short)0</td>
+</tr>
+<tr>
+<td style="text-align:center">int</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">long</td>
+<td style="text-align:center">0L</td>
+</tr>
+<tr>
+<td style="text-align:center">float</td>
+<td style="text-align:center">0.0f</td>
+</tr>
+<tr>
+<td style="text-align:center">double</td>
+<td style="text-align:center">0.0d</td>
+</tr>
+</tbody>
+</table>
+<p>上述确保初始化只适用于 <code>类的字段</code>，并不适用于 <code>局部变量</code>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x;</span><br><span class="line">System.out.println(x);  <span class="comment">//Variable 'x' might not have been initialized</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="方法、参数和返回值"><a href="#方法、参数和返回值" class="headerlink" title="方法、参数和返回值"></a>方法、参数和返回值</h3><p>方法的基本组成部分包括：名称，参数，返回值和方法体。除了某些特殊数据类型，通常方法参数传递的是对象的引用。</p>
+<h3 id="构建一个-Java-程序"><a href="#构建一个-Java-程序" class="headerlink" title="构建一个 Java 程序"></a>构建一个 Java 程序</h3><p>在每个程序文件的开头，必须声明 <code>import</code> 语句，以便引入在文件代码中需要用到的额外类。注意，在这里说额外类，是因为有一个特定类会自动被导入到每一个 Java 文件中：<code>java.lang</code>。</p>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>有三种注释的方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* This is a comment</span><br><span class="line"> * that continues</span><br><span class="line"> * across lines</span><br><span class="line"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* This is a comment that</span><br><span class="line">continues across lines */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// This is a one-line comment</span></span><br></pre></td></tr></table></figure></p>
+<p>通过 <code>javadoc</code> 可以生成良好的程序文档，以 HTML 的形式展现。所有的 javadoc 命令都只能在 <code>/**</code> 注释中出现，以 <code>*/</code> 结束，文档标签以 <code>@</code> 字符开头。例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@param</span> args</span><br><span class="line"> */</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="编码风格"><a href="#编码风格" class="headerlink" title="编码风格"></a>编码风格</h3><p>类名的首字母要大写，标识符的第一个字母采用小写，例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AllTheColorsOfTheRainbow</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> anIntegerRepresentingColors;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">changeTheHueOfTheColor</span><span class="params">(<span class="keyword">int</span> newHue)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Study-Notes/" rel="tag">#Study Notes</a>
+          
+            <a href="/tags/Thinking-in-Java/" rel="tag">#Thinking in Java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/08/introduction-to-object/" rel="next" title="对象导论">
+                <i class="fa fa-chevron-left"></i> 对象导论
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/10/operators-and-controlling-execution/" rel="prev" title="操作符与控制执行流程">
+                操作符与控制执行流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="denglyan" />
+          <p class="site-author-name" itemprop="name">denglyan</p>
+          <p class="site-description motion-element" itemprop="description">風が冷たいぶん  空が高いね</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#用引用操纵对象"><span class="nav-number">1.</span> <span class="nav-text">用引用操纵对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#必须由你创建所有对象"><span class="nav-number">2.</span> <span class="nav-text">必须由你创建所有对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#存储到什么地方"><span class="nav-number">2.1.</span> <span class="nav-text">存储到什么地方</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特例：基本类型"><span class="nav-number">2.2.</span> <span class="nav-text">特例：基本类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-中的数组"><span class="nav-number">2.3.</span> <span class="nav-text">Java 中的数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永远不需要销毁对象"><span class="nav-number">3.</span> <span class="nav-text">永远不需要销毁对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新的数据类型：类"><span class="nav-number">4.</span> <span class="nav-text">创建新的数据类型：类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法、参数和返回值"><span class="nav-number">5.</span> <span class="nav-text">方法、参数和返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建一个-Java-程序"><span class="nav-number">6.</span> <span class="nav-text">构建一个 Java 程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">7.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码风格"><span class="nav-number">8.</span> <span class="nav-text">编码风格</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">denglyan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>

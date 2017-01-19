@@ -1,0 +1,680 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Study Notes,Thinking in Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="初始化和清理正是涉及安全的两个问题，Java 对此采用了构造器与垃圾回收器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初始化与清理">
+<meta property="og:url" content="denglyan.github.io/2017/01/12/initialization-and-cleanup/index.html">
+<meta property="og:site_name" content="NOTE">
+<meta property="og:description" content="初始化和清理正是涉及安全的两个问题，Java 对此采用了构造器与垃圾回收器。">
+<meta property="og:updated_time" content="2017-01-19T17:02:38.622Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初始化与清理">
+<meta name="twitter:description" content="初始化和清理正是涉及安全的两个问题，Java 对此采用了构造器与垃圾回收器。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="denglyan.github.io/2017/01/12/initialization-and-cleanup/"/>
+
+  <title> 初始化与清理 | NOTE </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">NOTE</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                初始化与清理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-12T15:30:00+08:00" content="2017-01-12">
+              2017-01-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Study-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Study Notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Study-Notes/Thinking-in-Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Thinking in Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>初始化和清理正是涉及安全的两个问题，Java 对此采用了构造器与垃圾回收器。</p>
+<a id="more"></a>
+<h3 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h3><p>构造器的特点：</p>
+<ul>
+<li>构造器的名称必须与类名完全相同</li>
+<li>不接受任何参数的构造器称为无参构造器（也称为默认构造器），当类中没有构造器时，编译器自动创建</li>
+<li>如果类中有且仅有一个构造器，那么编译器将不会允许以其他任何方式创建类的对象</li>
+</ul>
+<h3 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a>方法重载</h3><p>需要注意的方面：</p>
+<ul>
+<li>每个重载的方法都必须有一个独一无二的参数类型列表</li>
+<li>传入的参数找不到匹配的方法，但是存在较大的类型的重载方法时，会自动转化成较大的类型，反之则会报错</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"int"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> c = <span class="number">5</span>;</span><br><span class="line">P.f(c);    <span class="comment">// int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> d = <span class="number">5</span>;</span><br><span class="line">P.f(d);    <span class="comment">// 不兼容的类型: 从double转换到int可能会有损失</span></span><br></pre></td></tr></table></figure>
+<h3 id="this-关键字"><a href="#this-关键字" class="headerlink" title="this 关键字"></a>this 关键字</h3><p>编译器对方法调用所做的幕后工作：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        System.out.println(k);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P a = <span class="keyword">new</span> P();</span><br><span class="line">P b = <span class="keyword">new</span> P();</span><br><span class="line">a.f(<span class="number">1</span>);</span><br><span class="line">b.f(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为了确定 f() 方法是被 a 还是被 b 调用，编译器把所操作对象的引用作为第一个参数传递给 f()，变成：</span></span><br><span class="line"><span class="comment">// P.f(a,1)</span></span><br><span class="line"><span class="comment">// P.f(b,2)</span></span><br><span class="line"><span class="comment">// 这是内部表示形式，并不能这样书写代码</span></span><br></pre></td></tr></table></figure></p>
+<p><code>this</code> 关键字只能在方法内部使用，表示对调用方法的那个对象的引用。如果在方法内部调用同一个类的另一个方法，就不必使用 <code>this</code>，直接调用即可。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        System.out.println(k);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fk</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        f(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">P <span class="title">getP</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P a = <span class="keyword">new</span> P();</span><br><span class="line">a.fk();  <span class="comment">// 0</span></span><br><span class="line">System.out.println(a.toString());  <span class="comment">// P@1b6d3586</span></span><br><span class="line">a.getP().fk();  <span class="comment">// 0</span></span><br><span class="line">System.out.println(a.getP().toString());  <span class="comment">// P@1b6d3586</span></span><br></pre></td></tr></table></figure></p>
+<p>通过 <code>this</code> 关键字，可以在一个构造器中调用另一个构造器，但不能调用两个。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    String s;</span><br><span class="line"></span><br><span class="line">    P(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="keyword">this</span>.n = n;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    P(String s) &#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="number">10</span>);</span><br><span class="line">        <span class="keyword">this</span>.s = s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P a = <span class="keyword">new</span> P(<span class="string">"s"</span>);</span><br><span class="line">System.out.println(a.n);  <span class="comment">// 10</span></span><br><span class="line">System.out.println(a.s);  <span class="comment">// s</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="清理"><a href="#清理" class="headerlink" title="清理"></a>清理</h3><p>垃圾回收不保证一定会发生，与内存使用情况等因素有关。</p>
+<p>Java 里的对象并非总是被垃圾回收：</p>
+<ul>
+<li>对象可能不被垃圾回收</li>
+<li>垃圾回收并不等于 C++ 中的析构</li>
+<li>垃圾回收只与内存有关</li>
+</ul>
+<p>当某些对象并非使用 <code>new</code> 创建时（可能使用本地方法，即调用非 Java 代码），垃圾回收器将无法合适的释放这些对象的内存。为了应对这种情况，Java 允许在类中定义一个名为 <code>finalize()</code> 的方法。它的工作原理：一旦垃圾回收器准备好释放对象占用的存储空间，将首先调用 <code>finalize()</code> 方法，并且在下次垃圾回收时，才会真正回收对象占用的空间。例如：用本地方法调用 C 的 malloc() 函数分配空间，结束时，需要在 <code>finalize()</code> 中用本地方法调用 C 的 free() 函数。</p>
+<p>另外，<code>finalize()</code> 还可以被用来验证对象的终结条件，即在 <code>finalize()</code> 方法里判断对象是否处于终结状态。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">boolean</span> check;</span><br><span class="line"></span><br><span class="line">    Book(<span class="keyword">boolean</span> check) &#123;</span><br><span class="line">        <span class="keyword">this</span>.check = check;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">checked</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        check = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> </span>&#123;  <span class="comment">// 在垃圾回收之前，检测书是否被检查</span></span><br><span class="line">        <span class="keyword">if</span> (!check) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Error: check is "</span> + check);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Book book = <span class="keyword">new</span> Book(<span class="keyword">false</span>);  <span class="comment">// 新书未被检查</span></span><br><span class="line">book.checked();     <span class="comment">// 新书被检查</span></span><br><span class="line"><span class="keyword">new</span> Book(<span class="keyword">false</span>);  <span class="comment">//  丢失引用，新书未被检查</span></span><br><span class="line">System.gc();   <span class="comment">// 强制进行终结，进行垃圾回收</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：Error: check is false</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><p>一种简单但速度很慢的垃圾回收技术，<code>引用记数</code>。每个对象都含有一个引用计数器，当有引用连接至对象时，引用计数加 1。当引用离开作用域或被置为 <code>null</code> 时，引用计数减 1。当某个对象的引用计数为 0 时，释放空间。缺陷：较难处理循环引用，对象应该被回收，但是引用计数却不为 0。</p>
+<p>一种更快的模式，从堆栈和静态存储区开始，遍历所有引用，这些引用对应的便是活的对象。这种模式下衍生出来的技术便是，<code>自适应</code> 垃圾回收技术。包含有两种做法，<code>停止-复制（stop-and-copy）</code>，<code>标记-清理（mark-and-sweep）</code>:</p>
+<ul>
+<li><code>停止-复制</code>，先暂停程序运行，然后把活的对象从当前堆复制到另一个堆，并且在新堆中保持紧凑排列</li>
+<li><code>标记-清理</code>，当垃圾较少时采用，也是先暂停程序，将活的对象进行标记，全部标记完后，将没有标记的对象清理</li>
+</ul>
+<p>即时（Just-In-Time，JIT）编译器，可以把程序全部或者部分翻译成本地机器码。当需要装载某个类（通常是在为该类创建第一个对象）时，编译器会找到其 <code>.class</code> 文件，然后将该类的字节码装入内存。一般采用 <code>惰性评估（lazy evaluation）</code>，意思是 JIT 只在必要的时候才编译代码，这样，从不会执行的代码也许压根不会被 JIT 所编译。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>初始化顺序：</p>
+<ul>
+<li>在类的内部，变量定义的先后顺序决定了初始化的顺序，即使变量定义散布于方法定义之间，它们仍旧会在任何方法（包括构造器）被调用之前得到初始化</li>
+<li>同时存在静态对象和非静态对象，先初始化静态对象</li>
+<li>静态初始化只有在必要时刻才会进行，例如类内部的静态方法，在对象创建时不会访问（除了构造器，因为构造器是和对象创建相绑定的）</li>
+</ul>
+<p>对象的创建过程，假设有一个名为 <code>Dog</code> 的类：</p>
+<ol>
+<li>即使没有显式地使用 <code>static</code> 关键字，构造器实际上也是静态方法。因此，当首次创建类型为 <code>Dog</code> 的对象时（或者 <code>Dog</code> 类的静态方法首次被访问时），Java 解释器必须查找类路径，以定位 <code>Dog.class</code> 文件，然后载入 <code>Dog.class</code> ，有关静态初始化的动作都会执行，且只在 <code>Class</code> 对象首次加载时进行</li>
+<li>当用 <code>new Dog()</code> 创建对象时，首先将在堆上为 <code>Dog</code> 对象分配足够的存储空间，这块存储空间会被清零，这就自动地将 <code>Dog</code> 对象中的所有基本类型数据都设置成了默认值，而引用被设置成 <code>null</code></li>
+<li>执行所有出现于字段定义处的初始化动作，然后紧接着执行构造器</li>
+</ol>
+<h3 id="数组的初始化"><a href="#数组的初始化" class="headerlink" title="数组的初始化"></a>数组的初始化</h3><p>初始化列表的最后一个逗号是可选的（便于维护长列表）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] n = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>,&#125;;</span><br><span class="line">System.out.println(Arrays.toString(n));  <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure></p>
+<p>可变参数列表，编译器会使用参数来自动填充数组：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>... ints)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : ints) &#123;</span><br><span class="line">            System.out.print(i + <span class="string">" "</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(Object... objects)</span> </span>&#123;</span><br><span class="line">        System.out.println(Arrays.toString(objects));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P.f(<span class="number">10</span>, <span class="number">10.5</span>, <span class="string">"aa"</span>);  <span class="comment">// [10, 10.5, aa]</span></span><br><span class="line">P.f(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;);   <span class="comment">// 1 2 3</span></span><br><span class="line">P.f(<span class="keyword">new</span> Integer[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;);  <span class="comment">// [1, 2, 3]，Integer 会自动转型为 Object</span></span><br><span class="line">P.f((Object[]) <span class="keyword">new</span> Integer[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;); <span class="comment">// 显式声明可以移除编译器警告</span></span><br><span class="line"><span class="comment">// P.f(); 某些情况下，编译器无法知道调用哪一个方法</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h3><p><code>enum</code> 可以很好的与 <code>switch</code> 搭配使用：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> F &#123;</span><br><span class="line">    A, B, C</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">        F f = F.B;</span><br><span class="line">        <span class="keyword">switch</span> (f) &#123;</span><br><span class="line">            <span class="keyword">case</span> A:</span><br><span class="line">                System.out.println(<span class="number">1</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> B:</span><br><span class="line">                System.out.println(<span class="number">2</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> C:</span><br><span class="line">                System.out.println(<span class="number">3</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Study-Notes/" rel="tag">#Study Notes</a>
+          
+            <a href="/tags/Thinking-in-Java/" rel="tag">#Thinking in Java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/10/operators-and-controlling-execution/" rel="next" title="操作符与控制执行流程">
+                <i class="fa fa-chevron-left"></i> 操作符与控制执行流程
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/13/access-control/" rel="prev" title="访问权限控制">
+                访问权限控制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="denglyan" />
+          <p class="site-author-name" itemprop="name">denglyan</p>
+          <p class="site-description motion-element" itemprop="description">風が冷たいぶん  空が高いね</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造器"><span class="nav-number">1.</span> <span class="nav-text">构造器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法重载"><span class="nav-number">2.</span> <span class="nav-text">方法重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#this-关键字"><span class="nav-number">3.</span> <span class="nav-text">this 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理"><span class="nav-number">4.</span> <span class="nav-text">清理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收"><span class="nav-number">5.</span> <span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">6.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的初始化"><span class="nav-number">7.</span> <span class="nav-text">数组的初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举类型"><span class="nav-number">8.</span> <span class="nav-text">枚举类型</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">denglyan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>

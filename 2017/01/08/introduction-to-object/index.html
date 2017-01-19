@@ -1,0 +1,692 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Study Notes,Thinking in Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="面向对象程序设计（Object-oriented Programming，OOP），本章内容以了解 OOP 为主。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象导论">
+<meta property="og:url" content="denglyan.github.io/2017/01/08/introduction-to-object/index.html">
+<meta property="og:site_name" content="NOTE">
+<meta property="og:description" content="面向对象程序设计（Object-oriented Programming，OOP），本章内容以了解 OOP 为主。">
+<meta property="og:updated_time" content="2017-01-19T17:12:40.029Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对象导论">
+<meta name="twitter:description" content="面向对象程序设计（Object-oriented Programming，OOP），本章内容以了解 OOP 为主。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="denglyan.github.io/2017/01/08/introduction-to-object/"/>
+
+  <title> 对象导论 | NOTE </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">NOTE</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                对象导论
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-08T23:40:00+08:00" content="2017-01-08">
+              2017-01-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Study-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Study Notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Study-Notes/Thinking-in-Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Thinking in Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>面向对象程序设计（Object-oriented Programming，OOP），本章内容以了解 OOP 为主。</p>
+<a id="more"></a>
+<h3 id="抽象过程"><a href="#抽象过程" class="headerlink" title="抽象过程"></a>抽象过程</h3><p>人们所能够解决的问题的复杂性直接取决于抽象对象的类型和质量。以下的五个特性表现了一种纯粹的面向对象程序设计方式：</p>
+<ul>
+<li>万物皆为对象</li>
+<li>程序是对象的集合，它们通过发送消息来告知彼此所要做的</li>
+<li>每个对象都有自己的由其他对象所构成的存储</li>
+<li>每个对象都拥有其类型</li>
+<li>某一特定类型的所有对象都可以接收同样的消息</li>
+</ul>
+<p>一个对对象更加简洁的描述：<code>对象具有状态、行为和标识</code>。这意味着每一个对象都可以拥有内部数据（它们给出了该对象的状态）和方法（它们产生行为），并且每个对象都可以唯一地与其他对象区分开来（标识）。</p>
+<h3 id="每个对象都有一个接口"><a href="#每个对象都有一个接口" class="headerlink" title="每个对象都有一个接口"></a>每个对象都有一个接口</h3><p>所有的对象都是唯一的，都属于定义了特性和行为的某个特定的类。一旦类被建立，就可以随心所欲地创建类的任意个对象，然后去操作它们。类决定接口，接口定义了对象所能满足的请求。</p>
+<h3 id="每个对象都提供服务"><a href="#每个对象都提供服务" class="headerlink" title="每个对象都提供服务"></a>每个对象都提供服务</h3><p>将对象想象成 <code>服务提供者</code>，通过创建提供一系列服务的对象来解决问题。以服务来划分对象，这可以提高对象的内聚性，也便于别人的理解与重用。</p>
+<h3 id="被隐藏的具体实现"><a href="#被隐藏的具体实现" class="headerlink" title="被隐藏的具体实现"></a>被隐藏的具体实现</h3><p>将开发人员按照角色分为 <code>类创建者</code>（创建与实现类的程序员）和 <code>客户端程序员</code>（使用类的程序员）。这里 <code>访问控制</code> 是重要的：</p>
+<ul>
+<li>使得客户端程序员无法触及类的内部操作</li>
+<li>使得类创建者改变类的内部处理而不影响客户端程序员平常的使用</li>
+</ul>
+<p>Java 以三个关键字来定义类的使用范围：<code>public</code>，<code>private</code>，<code>protected</code>。</p>
+<ul>
+<li><code>public</code> ：任何人都可以使用</li>
+<li><code>private</code> ：除类创建者和类内部方法之外，任何人不可使用</li>
+<li><code>protected</code> ：与 <code>private</code> 的差别在于，可以被继承的类使用。另外，<code>protected</code> 也提供包访问权限，也就是说，相同包内的其他类可以访问 <code>protected</code> 元素</li>
+<li>默认访问权限；即包访问权限，在包内可以被访问，在包外如同 <code>private</code></li>
+</ul>
+<h3 id="复用具体实现"><a href="#复用具体实现" class="headerlink" title="复用具体实现"></a>复用具体实现</h3><p>可以直接使用该类的对象，也可以将这个类的一个对象置于某个新的类中，即创建一个成员对象。使用现有的类合成新的类，这称为<code>组合（composition）</code>，如果组合是动态发生的，则称之为<code>聚合（aggregation）</code>。组合经常被视为 <code>has-a</code>（拥有）关系。新类的成员对象，通常被声明为 <code>private</code>，使得新类的客户端程序员不能访问它们，这可以在不干扰现有客户端代码的情况下，修改成员。</p>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>当继承现有类型（基类）时，也就创造了新的类型（导出类）。这个新的类型不仅包括基类的所有成员，而且更重要的是它复制了基类的接口。也就是说，所有可以发送给基类对象的消息，同时也可以发送给导出类对象。</p>
+<p>有两种方法可以使基类与导出类产生差异：</p>
+<ul>
+<li>直接添加新方法</li>
+<li>改变现有基类的方法，即<code>覆盖（overriding）</code></li>
+</ul>
+<h3 id="“是一个”与“像是一个”关系"><a href="#“是一个”与“像是一个”关系" class="headerlink" title="“是一个”与“像是一个”关系"></a>“是一个”与“像是一个”关系</h3><p>导出类仅仅只覆盖基类的方法，这意味着导出类和基类是完全相同的类型，因为它们具备完全相同的接口。这种情况下，基类与导出类之间的关系称为 <code>is-a</code>（是一个）关系。</p>
+<p>有时必须在导出类型中添加新的接口元素，也就是扩展了接口。这种情况称为 <code>is-like-a</code>（像是一个）关系。</p>
+<h3 id="伴随多态的可互换对象"><a href="#伴随多态的可互换对象" class="headerlink" title="伴随多态的可互换对象"></a>伴随多态的可互换对象</h3><p>在处理类型的层次结构时，经常想把一个对象不当作它所属的特定类型来对待，而是将其当作其基类的对象来对待，这使得人们可以编写出不依赖于特定类型的代码。</p>
+<p>一个非面向对象编程的编译器产生的函数调用会引起所谓的 <code>前期绑定</code>。这么做意味着编译器将产生对一个具体函数名字的调用，而运行时将这个调用解析到将要被执行的代码的绝对地址。</p>
+<p>面向对象程序设计语言使用了 <code>后期绑定</code>，即编译器确保被调用方法的存在，并对调用参数和返回值执行类型检查，但是并不知道将被执行的确切代码。</p>
+<p>在 Java 里，主要使用一小段特殊的代码来替代绝对地址调用。这段代码使用在对象中存储的信息来计算方法体的地址，即根据这段代码的内容，每个对象都可以具有不同的行为表现。并且在 Java 中，这种动态绑定是默认的，不需要添加额外的关键字来实现多态。</p>
+<p>把将导出类型看做是它的基类的过程称为 <code>向上转型（upcasting）</code>。一个面向对象程序肯定会在某处包含向上转型，因为这正是将自己从必须知道确切类型中解放出来的关键。</p>
+<h3 id="单根继承结构"><a href="#单根继承结构" class="headerlink" title="单根继承结构"></a>单根继承结构</h3><p>所有的类最终都继承自单一的基类，<code>Object</code>。单根继承结构的好处：</p>
+<ul>
+<li>保证所有对象都具备某些功能。所有对象都可以很容易地在堆上创建，而参数传递也得到了极大的简化</li>
+<li>使垃圾回收器的实现变得容易。由于所有对象都保证具有其类型的信息，因此不会因无法确定对象的类型而陷入僵局</li>
+</ul>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>当无法确定需要多少空间来创建对象时，可以先创建另一种对象类型。这种对象类型持有对其他对象的引用，称为容器，其在任何需要时都可以扩充自己以容纳置于其中的所有东西。在 Java 中例如，<code>List</code>，<code>Map</code>，<code>Set</code>，以及诸如队列、树、堆栈等。</p>
+<p>对容器有所选择的原因有两个：</p>
+<ul>
+<li>不同的容器提供了不同类型的接口和外部行为</li>
+<li>不同的容器对于某些操作具有不同的效率</li>
+</ul>
+<p>由于容器只存储 <code>Object</code>，所以当将对象置入容器时，它必须被向上转型为 <code>Object</code>。在取回时，就要考虑如何将它变回先前置入容器时的对象。创建容器，使其知道自己所保存的对象的类型，从而不需要向下转型以及消除犯错误的可能，这种解决方案称为参数化类型机制。例如一个存储 <code>String</code> 的 <code>ArrayList</code>：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; strings = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br></pre></td></tr></table></figure></p>
+<h3 id="对象的创建和生命周期"><a href="#对象的创建和生命周期" class="headerlink" title="对象的创建和生命周期"></a>对象的创建和生命周期</h3><p>有两种方式：</p>
+<ul>
+<li>对象的存储空间和生命周期在编写程序时确定，将对象置于堆栈或静态存储区域内实现，较为高效</li>
+<li>在<code>堆（heap）</code>的内存池内动态地创建对象，存储空间在运行时被动态管理，较为灵活</li>
+</ul>
+<p>Java 完全采用了 <code>动态内存分配</code> 的方式，每当想要创建新对象时，就要使用 <code>new</code> 关键字来构建此对象的动态实例。</p>
+<p>Java 提供了被称为 <code>垃圾回收器</code> 的机制，它可以自动发现对象何时不再被使用，并继而销毁它。</p>
+<h3 id="异常处理：处理错误"><a href="#异常处理：处理错误" class="headerlink" title="异常处理：处理错误"></a>异常处理：处理错误</h3><p>异常是一种对象，它从出错地点被抛出，并被专门设计用来处理特定类型错误的相应的异常处理器捕获。异常提供了一种从错误状况进行可靠恢复的途径，避免退出程序。这些都有助于编写出更健壮的程序。</p>
+<h3 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h3><p>通常，线程只是一种为单一处理器分配执行时间的手段。但是如果操作系统支持多处理器，那么每个任务都可以被指派给不同的处理器，并且它们是在真正地并行执行。在语言级别上，多线程所带来的便利之一便是程序员不用再操心机器上是有多个处理器还是只有一个处理器。另外，还需要注意共享资源的问题。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Study-Notes/" rel="tag">#Study Notes</a>
+          
+            <a href="/tags/Thinking-in-Java/" rel="tag">#Thinking in Java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/13/interleaving-string/" rel="next" title="Interleaving String">
+                <i class="fa fa-chevron-left"></i> Interleaving String
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/09/everything-is-an-object/" rel="prev" title="一切都是对象">
+                一切都是对象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="denglyan" />
+          <p class="site-author-name" itemprop="name">denglyan</p>
+          <p class="site-description motion-element" itemprop="description">風が冷たいぶん  空が高いね</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象过程"><span class="nav-number">1.</span> <span class="nav-text">抽象过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#每个对象都有一个接口"><span class="nav-number">2.</span> <span class="nav-text">每个对象都有一个接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#每个对象都提供服务"><span class="nav-number">3.</span> <span class="nav-text">每个对象都提供服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#被隐藏的具体实现"><span class="nav-number">4.</span> <span class="nav-text">被隐藏的具体实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复用具体实现"><span class="nav-number">5.</span> <span class="nav-text">复用具体实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承"><span class="nav-number">6.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#“是一个”与“像是一个”关系"><span class="nav-number">7.</span> <span class="nav-text">“是一个”与“像是一个”关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伴随多态的可互换对象"><span class="nav-number">8.</span> <span class="nav-text">伴随多态的可互换对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单根继承结构"><span class="nav-number">9.</span> <span class="nav-text">单根继承结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器"><span class="nav-number">10.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的创建和生命周期"><span class="nav-number">11.</span> <span class="nav-text">对象的创建和生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理：处理错误"><span class="nav-number">12.</span> <span class="nav-text">异常处理：处理错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发编程"><span class="nav-number">13.</span> <span class="nav-text">并发编程</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">denglyan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
