@@ -90,7 +90,7 @@
 <meta property="og:url" content="denglyan.github.io/2017/01/10/operators-and-controlling-execution/index.html">
 <meta property="og:site_name" content="NOTE">
 <meta property="og:description" content="本章主要为 Java 操作符与控制执行流程的相关笔记。">
-<meta property="og:updated_time" content="2017-01-19T17:06:43.285Z">
+<meta property="og:updated_time" content="2017-03-18T12:09:19.377Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作符与控制执行流程">
 <meta name="twitter:description" content="本章主要为 Java 操作符与控制执行流程的相关笔记。">
@@ -327,8 +327,8 @@
       
         <p>本章主要为 Java 操作符与控制执行流程的相关笔记。</p>
 <a id="more"></a>
-<h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><p>对基本数据类型的赋值是简单的。基本类型存储了实际的数值，而并非指向一个对象的引用，所以在赋值时，是直接将一个地方的内容复制到另一个地方。例如：对基本数据类型使用 a = b，那么修改 a 的内容，b 不会受到影响。</p>
-<p>在对象赋值时，由于是对对象的引用进行操作，所以实际上是将引用复制到另一个地方。例如：对对象使用 c = d，那么 c 和 d 都指向原本只有 d 指向的那个对象。另外，将一个对象传递给方法时，大多数情况下，传递的也是引用。</p>
+<h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><p>对基本数据类型的赋值是简单的。基本类型存储了实际的数值，而并非指向一个对象的引用，所以在赋值时，是直接将一个地方的内容复制到另一个地方。例如：对基本数据类型使用 <code>a = b</code>，那么修改 <code>a</code> 的内容，<code>b</code> 不会受到影响。</p>
+<p>在对象赋值时，由于是对对象的引用进行操作，所以实际上是将引用复制到另一个地方。例如：对对象使用 <code>c = d</code>，那么 <code>c</code> 和 <code>d</code> 都指向原本只有 <code>d</code> 指向的那个对象。另外，将一个对象传递给方法时，大多数情况下，传递的也是引用。</p>
 <h3 id="算术操作符"><a href="#算术操作符" class="headerlink" title="算术操作符"></a>算术操作符</h3><p>一元减号和一元加号，都能将较小类型的操作数提升为 <code>int</code>，例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">short</span> b = +a;   <span class="comment">// Incompatible types. Required: short , Found: int</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="自动递增和递减"><a href="#自动递增和递减" class="headerlink" title="自动递增和递减"></a>自动递增和递减</h3><p>对于前缀递增和前缀递减（如 <code>++a</code> 或 <code>--a</code>），会先执行运算，再生成值。而对于后缀递增和后缀递减（如 <code>a++</code> 或 <code>a--</code>），会先生成值，再执行运算。例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">System.out.println(a++);  <span class="comment">// 10</span></span><br><span class="line">System.out.println(++a);  <span class="comment">// 12</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="对象的等价性"><a href="#对象的等价性" class="headerlink" title="对象的等价性"></a>对象的等价性</h3><p>对于基本类型来说，使用 <code>==</code> 和 <code>!=</code> 即可。对于对象来说， <code>==</code> 仅仅只是比较对象的引用是否相同。如果想比较两个对象的实际内容，应该使用 <code>equals()</code> 方法。另外，对于自定义的类，需要在类中覆盖 <code>equals()</code> 方法后，才能进行正确的比较。</p>
@@ -421,9 +421,9 @@
 </tr>
 </tbody>
 </table>
-<p>对较小类型进行移位处理，在移位之前会自动转换为 <code>int</code> 类型。得到的结果也是一个 <code>int</code> 值，即只会取右端的低 5 位，因为 <code>int</code> 型值只有 32 位。</p>
+<p>对较小的数据类型进行移位处理，在移位之前会自动转换为 <code>int</code> 类型。得到的结果也是一个 <code>int</code> 值，即只会取右端的低 5 位，因为 <code>int</code> 型值只有 32 位。</p>
 <h3 id="三元操作符"><a href="#三元操作符" class="headerlink" title="三元操作符"></a>三元操作符</h3><p>相比 <code>if-else</code> 显得更加简练：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n = <span class="number">10</span>;</span><br><span class="line">System.out.println(n &lt; <span class="number">100</span> ? n : <span class="number">100</span>); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="Foreach-语法"><a href="#Foreach-语法" class="headerlink" title="Foreach 语法"></a>Foreach 语法</h3><p>对于数组和容器，<code>foreach</code> 将自动产生每一项：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] n = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> x : n) &#123;</span><br><span class="line">    System.out.println(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="forEach-语法"><a href="#forEach-语法" class="headerlink" title="forEach 语法"></a>forEach 语法</h3><p>对于数组和容器，<code>forEach</code> 将自动产生每一项：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] n = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> x : n) &#123;</span><br><span class="line">    System.out.println(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><p>标签必须在迭代语句之前声明，主要用于多重循环：</p>
 <ul>
 <li>一般的 <code>continue</code> 会退回最内层循环的开头，并继续执行</li>
@@ -534,12 +534,12 @@
                src="/images/avatar.png"
                alt="denglyan" />
           <p class="site-author-name" itemprop="name">denglyan</p>
-          <p class="site-description motion-element" itemprop="description">風が冷たいぶん  空が高いね</p>
+          <p class="site-description motion-element" itemprop="description">めざせポケモンマスター</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -585,7 +585,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#赋值"><span class="nav-number">1.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算术操作符"><span class="nav-number">2.</span> <span class="nav-text">算术操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动递增和递减"><span class="nav-number">3.</span> <span class="nav-text">自动递增和递减</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的等价性"><span class="nav-number">4.</span> <span class="nav-text">对象的等价性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑短路"><span class="nav-number">5.</span> <span class="nav-text">逻辑短路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接常量"><span class="nav-number">6.</span> <span class="nav-text">直接常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按位操作符"><span class="nav-number">7.</span> <span class="nav-text">按位操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移位操作符"><span class="nav-number">8.</span> <span class="nav-text">移位操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三元操作符"><span class="nav-number">9.</span> <span class="nav-text">三元操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Foreach-语法"><span class="nav-number">10.</span> <span class="nav-text">Foreach 语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签"><span class="nav-number">11.</span> <span class="nav-text">标签</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#赋值"><span class="nav-number">1.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算术操作符"><span class="nav-number">2.</span> <span class="nav-text">算术操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动递增和递减"><span class="nav-number">3.</span> <span class="nav-text">自动递增和递减</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的等价性"><span class="nav-number">4.</span> <span class="nav-text">对象的等价性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑短路"><span class="nav-number">5.</span> <span class="nav-text">逻辑短路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接常量"><span class="nav-number">6.</span> <span class="nav-text">直接常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按位操作符"><span class="nav-number">7.</span> <span class="nav-text">按位操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移位操作符"><span class="nav-number">8.</span> <span class="nav-text">移位操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三元操作符"><span class="nav-number">9.</span> <span class="nav-text">三元操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forEach-语法"><span class="nav-number">10.</span> <span class="nav-text">forEach 语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签"><span class="nav-number">11.</span> <span class="nav-text">标签</span></a></li></ol></div>
             
           </div>
         </section>

@@ -90,7 +90,7 @@
 <meta property="og:url" content="denglyan.github.io/2017/01/12/initialization-and-cleanup/index.html">
 <meta property="og:site_name" content="NOTE">
 <meta property="og:description" content="初始化和清理正是涉及安全的两个问题，Java 对此采用了构造器与垃圾回收器。">
-<meta property="og:updated_time" content="2017-01-19T17:02:38.622Z">
+<meta property="og:updated_time" content="2017-03-16T12:44:27.971Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初始化与清理">
 <meta name="twitter:description" content="初始化和清理正是涉及安全的两个问题，Java 对此采用了构造器与垃圾回收器。">
@@ -351,7 +351,7 @@
 </ul>
 <p>当某些对象并非使用 <code>new</code> 创建时（可能使用本地方法，即调用非 Java 代码），垃圾回收器将无法合适的释放这些对象的内存。为了应对这种情况，Java 允许在类中定义一个名为 <code>finalize()</code> 的方法。它的工作原理：一旦垃圾回收器准备好释放对象占用的存储空间，将首先调用 <code>finalize()</code> 方法，并且在下次垃圾回收时，才会真正回收对象占用的空间。例如：用本地方法调用 C 的 malloc() 函数分配空间，结束时，需要在 <code>finalize()</code> 中用本地方法调用 C 的 free() 函数。</p>
 <p>另外，<code>finalize()</code> 还可以被用来验证对象的终结条件，即在 <code>finalize()</code> 方法里判断对象是否处于终结状态。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">boolean</span> check;</span><br><span class="line"></span><br><span class="line">    Book(<span class="keyword">boolean</span> check) &#123;</span><br><span class="line">        <span class="keyword">this</span>.check = check;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">checked</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        check = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> </span>&#123;  <span class="comment">// 在垃圾回收之前，检测书是否被检查</span></span><br><span class="line">        <span class="keyword">if</span> (!check) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Error: check is "</span> + check);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Book book = <span class="keyword">new</span> Book(<span class="keyword">false</span>);  <span class="comment">// 新书未被检查</span></span><br><span class="line">book.checked();     <span class="comment">// 新书被检查</span></span><br><span class="line"><span class="keyword">new</span> Book(<span class="keyword">false</span>);  <span class="comment">//  丢失引用，新书未被检查</span></span><br><span class="line">System.gc();   <span class="comment">// 强制进行终结，进行垃圾回收</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：Error: check is false</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><p>一种简单但速度很慢的垃圾回收技术，<code>引用记数</code>。每个对象都含有一个引用计数器，当有引用连接至对象时，引用计数加 1。当引用离开作用域或被置为 <code>null</code> 时，引用计数减 1。当某个对象的引用计数为 0 时，释放空间。缺陷：较难处理循环引用，对象应该被回收，但是引用计数却不为 0。</p>
+<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><p>一种简单但速度很慢的垃圾回收技术，<code>引用记数</code>。每个对象都含有一个引用记数器，当有引用连接至对象时，引用记数加 1。当引用离开作用域或被置为 <code>null</code> 时，引用记数减 1。垃圾回收器会在含有全部对象的列表上遍历，当发现某个对象的引用记数为 0 时，释放空间（但是，引用记数模式经常会在记数值变为 0 时，立即释放对象）。缺陷：较难处理循环引用，对象应该被回收，但是引用记数却不为 0。</p>
 <p>一种更快的模式，从堆栈和静态存储区开始，遍历所有引用，这些引用对应的便是活的对象。这种模式下衍生出来的技术便是，<code>自适应</code> 垃圾回收技术。包含有两种做法，<code>停止-复制（stop-and-copy）</code>，<code>标记-清理（mark-and-sweep）</code>:</p>
 <ul>
 <li><code>停止-复制</code>，先暂停程序运行，然后把活的对象从当前堆复制到另一个堆，并且在新堆中保持紧凑排列</li>
@@ -361,8 +361,8 @@
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>初始化顺序：</p>
 <ul>
 <li>在类的内部，变量定义的先后顺序决定了初始化的顺序，即使变量定义散布于方法定义之间，它们仍旧会在任何方法（包括构造器）被调用之前得到初始化</li>
-<li>同时存在静态对象和非静态对象，先初始化静态对象</li>
-<li>静态初始化只有在必要时刻才会进行，例如类内部的静态方法，在对象创建时不会访问（除了构造器，因为构造器是和对象创建相绑定的）</li>
+<li>静态初始化只有在必要时刻才会进行（例如第一次访问时）</li>
+<li>同时涉及到静态变量和非静态变量，先初始化静态变量</li>
 </ul>
 <p>对象的创建过程，假设有一个名为 <code>Dog</code> 的类：</p>
 <ol>
@@ -475,12 +475,12 @@
                src="/images/avatar.png"
                alt="denglyan" />
           <p class="site-author-name" itemprop="name">denglyan</p>
-          <p class="site-description motion-element" itemprop="description">風が冷たいぶん  空が高いね</p>
+          <p class="site-description motion-element" itemprop="description">めざせポケモンマスター</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">48</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
