@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，选择一个满足需求的，合理的结构。
-目前关系数据库有六种范式：1NF，2NF，3NF，BCNF，4NF，5NF。">
+<meta name="description" content="通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，尽量选择一个满足需求的，合理的结构
+目前关系数据库有六种范式：1NF，2NF，3NF，BCNF，4NF，5NF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库范式（关系型数据库）">
 <meta property="og:url" content="denglyan.github.io/2016/07/28/database-normalization-relational/index.html">
 <meta property="og:site_name" content="NOTE">
-<meta property="og:description" content="通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，选择一个满足需求的，合理的结构。
-目前关系数据库有六种范式：1NF，2NF，3NF，BCNF，4NF，5NF。">
-<meta property="og:updated_time" content="2016-08-09T08:50:54.343Z">
+<meta property="og:description" content="通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，尽量选择一个满足需求的，合理的结构
+目前关系数据库有六种范式：1NF，2NF，3NF，BCNF，4NF，5NF">
+<meta property="og:updated_time" content="2017-03-30T12:13:23.245Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库范式（关系型数据库）">
-<meta name="twitter:description" content="通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，选择一个满足需求的，合理的结构。
-目前关系数据库有六种范式：1NF，2NF，3NF，BCNF，4NF，5NF。">
+<meta name="twitter:description" content="通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，尽量选择一个满足需求的，合理的结构
+目前关系数据库有六种范式：1NF，2NF，3NF，BCNF，4NF，5NF">
 
 
 
@@ -328,10 +328,10 @@
       
 
       
-        <p>通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，选择一个满足需求的，合理的结构。</p>
-<p>目前关系数据库有六种范式：1NF，2NF，3NF，BCNF，4NF，5NF。</p>
+        <p>通过规范来解决数据冗余以及一些操作异常的情况。在实际生活中，追求最高的范式并不一定是最好的选择，要考虑多方面因素，如查询速度，数据量等等，尽量选择一个满足需求的，合理的结构</p>
+<p>目前关系数据库有六种范式：1NF，2NF，3NF，BCNF，4NF，5NF</p>
 <a id="more"></a>
-<h3 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h3><p>要求数据库表的每一列都是不可分割的<code>原子数据项</code>，即实体中的某个属性有多个值时，必须拆分为不同的属性。<br>例如：</p>
+<h3 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h3><p>要求数据库表的每一列都是不可分割的<code>原子数据项</code>，即实体中的某个属性有多个值时，必须拆分为不同的属性，例如：</p>
 <p><strong>用户信息表</strong></p>
 <table>
 <thead>
@@ -351,7 +351,7 @@
 </tr>
 </tbody>
 </table>
-<p>当实际需求对地址没有特定的要求下，这个用户信息表的每一列都是不可分割的。但是当实际需求对省份或者城市有特别要求时，这个用户信息表中的地址就是可以分割的。<br>改为：</p>
+<p>当实际需求对地址没有特定的要求下，这个用户信息表的每一列都是不可分割的。但是当实际需求对省份或者城市有特别要求时，这个用户信息表中的地址就是可以分割的，改为：</p>
 <p><strong>用户信息表</strong></p>
 <table>
 <thead>
@@ -380,7 +380,7 @@
 <li>表结构相对清晰</li>
 <li>易于查询</li>
 </ul>
-<h3 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h3><p>主键与非主键之间是<code>完全函数依赖关系</code>。即数据库表中的每一列都和主键的所有属性相关，不能只和主键的部分属性相关。<br>完全函数依赖：有属性集X，Y，通过X中的所有属性能够推出Y中的任意属性，但是X的任何真子集，都不能推出Y中的任何属性。<br>例如：</p>
+<h3 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h3><p>主键与非主键之间是<code>完全函数依赖关系</code>。即数据库表中的每一列都和主键的所有属性相关，不能只和主键的部分属性相关<br>完全函数依赖：有属性集 X，Y，通过 X 中的所有属性能够推出 Y 中的任意属性，但是 X 的任何真子集，都不能推出 Y 中的任何属性，例如：</p>
 <p><strong>学生课程表</strong></p>
 <table>
 <thead>
@@ -420,7 +420,7 @@
 </tr>
 </tbody>
 </table>
-<p>将学生编号和课程编号作为主键，能确定唯一一条数据，但是学生名称只跟学生编号有关，跟课程编号无关，即不满足完全函数依赖。<br>改为：</p>
+<p>将学生编号和课程编号作为主键，能确定唯一一条数据，但是学生名称只跟学生编号有关，跟课程编号无关，即不满足完全函数依赖，改为：</p>
 <p><strong>学生表</strong></p>
 <table>
 <thead>
@@ -495,7 +495,7 @@
 <li>解决更新繁琐，当更改一门课程名称时，原表要更改多条数据</li>
 <li>解决删除异常，当学生学完一门课，原表若要清空学生上课信息，课程编号与课程名称的关系可能会丢失</li>
 </ul>
-<h3 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h3><p>任何非主属性不依赖于其它非主属性，即消除<code>传递函数依赖</code>（在2NF基础上）。<br>传递函数依赖：有属性集X，Y，Z，$X \Rightarrow Y，X \not\subset Y，Y \nRightarrow X，( X \bigcup Y ) \bigcap    Z = \emptyset，Y \Rightarrow Z$，则Z传递函数依赖于X。<br>例如：</p>
+<h3 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h3><p>任何非主属性不依赖于其它非主属性，即消除<code>传递函数依赖</code>（在 2NF 基础上）<br>传递函数依赖：有属性集 X，Y，Z，满足 $X \Rightarrow Y，X \not\subset Y，Y \nRightarrow X，( X \bigcup Y ) \bigcap    Z = \emptyset，Y \Rightarrow Z$ 时，则 Z 传递函数依赖于 X，例如：</p>
 <p><strong>学生表</strong></p>
 <table>
 <thead>
@@ -521,7 +521,7 @@
 </tr>
 </tbody>
 </table>
-<p>学生编号作为主键满足第二范式（2NF）。通过学生编号 $\Rightarrow$ 所在班级 $\Rightarrow$ 班主任，所以班级和班主任之间存在依赖关系。<br>改为：</p>
+<p>学生编号作为主键满足第二范式（2NF）。通过学生编号 $\Rightarrow$ 所在班级 $\Rightarrow$ 班主任，所以班级和班主任之间存在依赖关系，改为：</p>
 <p><strong>学生表</strong></p>
 <table>
 <thead>
@@ -570,7 +570,7 @@
 <li>解决插入异常，当班级分配了老师，还没分配学生的时候，原表将不可插入数据</li>
 <li>解决删除异常，当学生毕业后，若要清空学生信息，班级和老师的关系可能会丢失</li>
 </ul>
-<h3 id="巴斯-科德范式（BCNF）"><a href="#巴斯-科德范式（BCNF）" class="headerlink" title="巴斯-科德范式（BCNF）"></a>巴斯-科德范式（BCNF）</h3><p>在3NF基础上，消除<code>主属性</code>之间的<code>传递函数依赖</code>。<br>例如：</p>
+<h3 id="巴斯-科德范式（BCNF）"><a href="#巴斯-科德范式（BCNF）" class="headerlink" title="巴斯-科德范式（BCNF）"></a>巴斯-科德范式（BCNF）</h3><p>在3NF基础上，消除<code>主属性</code>之间的<code>传递函数依赖</code>，例如：</p>
 <p><strong>配件表</strong></p>
 <table>
 <thead>
@@ -609,7 +609,7 @@
 <li>一种配件可以放多个仓库</li>
 <li>一个仓库，一个职工管理多个配件，一种配件由唯一一个职工管理</li>
 </ul>
-<p>由此，将（仓库号，配件号）作为主键，满足3NF，但是（仓库号，配件号）$\Rightarrow$ 职工号 $\Rightarrow$ 仓库号，造成传递函数依赖。<br>改为：</p>
+<p>由此，将（仓库号，配件号）作为主键，满足 3NF，但是（仓库号，配件号）$\Rightarrow$ 职工号 $\Rightarrow$ 仓库号，造成传递函数依赖，改为：</p>
 <p><strong>仓库表</strong></p>
 <table>
 <thead>
@@ -657,7 +657,7 @@
 </tbody>
 </table>
 <p><strong>好处</strong>：解决一些冗余和一些异常情况<br><strong>不足</strong>：丢失一些函数依赖，如丢失（仓库号，配件号）$\Rightarrow$ 职工号，无法通过单表来确定一个职工号</p>
-<h3 id="第四范式（4NF）"><a href="#第四范式（4NF）" class="headerlink" title="第四范式（4NF）"></a>第四范式（4NF）</h3><p>当一个表中非主属性相互独立时（即在3NF基础上），这些非主属性不应该有<code>多值</code>。<br>例如：</p>
+<h3 id="第四范式（4NF）"><a href="#第四范式（4NF）" class="headerlink" title="第四范式（4NF）"></a>第四范式（4NF）</h3><p>当一个表中非主属性相互独立时（即在 3NF 基础上），这些非主属性不应该有<code>多值</code>，例如：</p>
 <p><strong>客户联系方式</strong></p>
 <table>
 <thead>
@@ -680,7 +680,7 @@
 </tr>
 </tbody>
 </table>
-<p>一个用户拥有多个固定电话和移动电话，给表的维护带来很多麻烦。比如增加一个固定电话，那么移动电话这一栏要如何处理，选择一个已有的移动电话？还是直接为空值？<br>改为：</p>
+<p>一个用户拥有多个固定电话和移动电话，给表的维护带来很多麻烦。比如增加一个固定电话，那么移动电话这一栏就较难维护，改为：</p>
 <p><strong>客户电话表</strong></p>
 <table>
 <thead>
@@ -714,7 +714,7 @@
 </tbody>
 </table>
 <p><strong>好处</strong>：解决一些异常，使表结构更加合理</p>
-<h3 id="第五范式（5NF）"><a href="#第五范式（5NF）" class="headerlink" title="第五范式（5NF）"></a>第五范式（5NF）</h3><p>在关系模式R中，每一个<code>连接依赖</code>均有R的<code>候选码</code>所隐含。即，连接时，所连接的属性都是候选码。<br>例如：</p>
+<h3 id="第五范式（5NF）"><a href="#第五范式（5NF）" class="headerlink" title="第五范式（5NF）"></a>第五范式（5NF）</h3><p>在关系模式 R 中，每一个<code>连接依赖</code>均有 R 的<code>候选码</code>所隐含。即连接时，所连接的属性都是候选码，例如：</p>
 <p><strong>销售表</strong></p>
 <table>
 <thead>
@@ -747,7 +747,7 @@
 </tr>
 </tbody>
 </table>
-<p>要想找到某一条数据，必须以（销售人员，供应商，产品）为主键。<br>改为：</p>
+<p>要想找到某一条数据，必须以（销售人员，供应商，产品）为主键，改为：</p>
 <p><strong>销售人员_供应商表</strong></p>
 <table>
 <thead>
