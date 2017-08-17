@@ -1,0 +1,642 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Study Notes,Oracle," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="记录遇到的一些 Oracle 函数，以及表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle SQL">
+<meta property="og:url" content="denglyan.github.io/2017/08/17/oracle-sql/index.html">
+<meta property="og:site_name" content="NOTE">
+<meta property="og:description" content="记录遇到的一些 Oracle 函数，以及表达式">
+<meta property="og:updated_time" content="2017-08-17T14:39:53.654Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oracle SQL">
+<meta name="twitter:description" content="记录遇到的一些 Oracle 函数，以及表达式">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="denglyan.github.io/2017/08/17/oracle-sql/"/>
+
+  <title> Oracle SQL | NOTE </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">NOTE</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Oracle SQL
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-17T22:40:00+08:00" content="2017-08-17">
+              2017-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Study-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Study Notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Study-Notes/Oracle/" itemprop="url" rel="index">
+                    <span itemprop="name">Oracle</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>记录遇到的一些 Oracle 函数，以及表达式</p>
+<a id="more"></a>
+<h3 id="length-与-lengthb"><a href="#length-与-lengthb" class="headerlink" title="length 与 lengthb"></a>length 与 lengthb</h3><p><a href="http://docs.oracle.com/database/122/SQLRF/LENGTH.htm#SQLRF00658" target="_blank" rel="external">LENGTH</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- length()</span></span><br><span class="line"><span class="comment">-- 代表的是字符的长度</span></span><br><span class="line"></span><br><span class="line">length('好') = 1 , length('d') = 1</span><br><span class="line"></span><br><span class="line"><span class="comment">-- lengthb()</span></span><br><span class="line"><span class="comment">-- 代表的是字节的长度，不同字符集，其字节长度可能不同</span></span><br><span class="line"></span><br><span class="line">lengthb('d') = 1 , lengthb('好') = 2  <span class="comment">-- 按数据库默认字符集处理</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- convert()</span></span><br><span class="line"><span class="comment">-- 转换字符串的字符集</span></span><br><span class="line"></span><br><span class="line">lengthb(convert('好', 'ZHS16GBK')) = 2</span><br><span class="line">lengthb(convert('好', 'UTF8')) = 3</span><br></pre></td></tr></table></figure>
+<h3 id="utl-match-edit-distance"><a href="#utl-match-edit-distance" class="headerlink" title="utl_match.edit_distance"></a>utl_match.edit_distance</h3><p><a href="http://docs.oracle.com/database/122/ARPLS/UTL_MATCH.htm#ARPLS71215" target="_blank" rel="external">EDIT_DISTANCE Function</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- utl_match.edit_distance(s1 IN VARCHAR2, s2 IN VARCHAR2)</span></span><br><span class="line"><span class="comment">-- 字符串 s1 转化为 s2 所需的变动数量（插入，删除，替换）</span></span><br><span class="line"></span><br><span class="line">utl_match.edit_distance('abc', 'acb') = 2</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 中文涉及到编码</span></span><br><span class="line"></span><br><span class="line">utl_match.edit_distance(convert('人', 'ZHS16GBK'), convert('事', 'ZHS16GBK')) = 2</span><br><span class="line">utl_match.edit_distance(convert('人', 'UTF8'), convert('事', 'UTF8')) = 1</span><br><span class="line"></span><br><span class="line">utl_match.edit_distance(convert('学', 'ZHS16GBK'), convert('生', 'ZHS16GBK')) = 2</span><br><span class="line">utl_match.edit_distance(convert('学', 'UTF8'), convert('生', 'UTF8')) = 3</span><br><span class="line"></span><br><span class="line"><span class="comment">-- utl_match.edit_distance_similarity(s1 IN VARCHAR2, s2 IN VARCHAR2)</span></span><br><span class="line"><span class="comment">-- 相似度，(1 - edit_distance / max(s1.length, s2.length)) * 100，舍弃小数点并进位</span></span><br><span class="line"></span><br><span class="line">utl_match.edit_distance_similarity('abc', 'acb') = 34</span><br></pre></td></tr></table></figure>
+<h3 id="last-day"><a href="#last-day" class="headerlink" title="last_day"></a>last_day</h3><p><a href="http://docs.oracle.com/database/122/SQLRF/LAST_DAY.htm#SQLRF00654" target="_blank" rel="external">LAST_DAY</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- last_day(date)</span></span><br><span class="line"><span class="comment">-- 返回日期所在月份的最后一天</span></span><br><span class="line"></span><br><span class="line">last_day(to_date('2017-7-19', 'YYYY-MM-DD'))  <span class="comment">-- 2017/7/31</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 当存在时，分，秒，last_day 保留当前的时，分，秒</span></span><br><span class="line"></span><br><span class="line">last_day(to_date('2017-7-19 19:10', 'YYYY-MM-DD HH24:MI'))  <span class="comment">-- 2017/7/31 19:10:00</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 当日期只有年份时，to_date 默认获取当前所在月份的第一天</span></span><br><span class="line"></span><br><span class="line">to_date('2017', 'YYYY')  <span class="comment">-- 2017/7/1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 当日期显示有小时，自动补全不存在的分和秒</span></span><br><span class="line"></span><br><span class="line">to_date('2017-7-19 19', 'YYYY-MM-DD HH24')  <span class="comment">-- 2017/7/19 19:00:00</span></span><br></pre></td></tr></table></figure>
+<h3 id="trunc"><a href="#trunc" class="headerlink" title="trunc"></a>trunc</h3><p><a href="http://docs.oracle.com/database/122/SQLRF/TRUNC-date.htm#SQLRF06151" target="_blank" rel="external">TRUNC (date)</a><br><a href="http://docs.oracle.com/database/122/SQLRF/TRUNC-number.htm#SQLRF06150" target="_blank" rel="external">TRUNC (number)</a></p>
+<p>时间截取格式参考：<a href="http://docs.oracle.com/database/122/SQLRF/ROUND-and-TRUNC-Date-Functions.htm#SQLRF52058" target="_blank" rel="external">Date Format Models for the ROUND and TRUNC Date Functions</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- trunc()</span></span><br><span class="line"><span class="comment">-- 可以截取时间，数字</span></span><br><span class="line"></span><br><span class="line">trunc(to_date('2017-7-19', 'YYYY-MM-DD'), 'YYYY')  <span class="comment">-- 2017/1/1</span></span><br><span class="line">trunc(to_date('2017-7-19', 'YYYY-MM-DD'), 'MM')  <span class="comment">-- 2017/7/1</span></span><br><span class="line"></span><br><span class="line">trunc(15.79, 1)  <span class="comment">-- 15.7</span></span><br><span class="line">trunc(15.79, 0)  <span class="comment">-- 15</span></span><br><span class="line">trunc(15.79, -1)  <span class="comment">-- 10</span></span><br></pre></td></tr></table></figure>
+<h3 id="interval"><a href="#interval" class="headerlink" title="interval"></a>interval</h3><p><a href="http://docs.oracle.com/database/122/SQLRF/Interval-Expressions.htm#SQLRF52084" target="_blank" rel="external">Interval Expressions</a><br><a href="http://docs.oracle.com/database/122/SQLRF/Literals.htm#SQLRF00221" target="_blank" rel="external">Interval Literals</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Interval Expressions</span></span><br><span class="line"></span><br><span class="line">(sysdate - to_date('2017-6-25', 'YYYY-MM-DD')) year to month  <span class="comment">-- +00-01</span></span><br><span class="line">(sysdate - to_date('2017-6-25', 'YYYY-MM-DD')) year(4) to month  <span class="comment">-- +0000-01</span></span><br><span class="line"></span><br><span class="line">(sysdate - to_date('2017-6-25', 'YYYY-MM-DD')) day to second  <span class="comment">-- +33 14:43:14.000000</span></span><br><span class="line">(sysdate - to_date('2017-6-25', 'YYYY-MM-DD')) day(3) to second(2)  <span class="comment">-- +033 14:44:33.00</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- Interval Literals</span></span><br><span class="line"></span><br><span class="line">interval '5' year  <span class="comment">-- +05-00</span></span><br><span class="line">interval '2-6' year to month  <span class="comment">-- +02-06</span></span><br><span class="line">interval '20' month  <span class="comment">-- +01-08</span></span><br><span class="line"></span><br><span class="line">interval '40' day  <span class="comment">-- +40 00:00:00</span></span><br><span class="line">interval '40 10:30' day to minute  <span class="comment">-- +40 10:30:00</span></span><br><span class="line">interval '100' minute  <span class="comment">-- +00 01:40:00</span></span><br><span class="line"></span><br><span class="line">to_date('2017-7-28', 'YYYY-MM-DD') - interval '40' day  <span class="comment">-- 2017/6/18</span></span><br><span class="line">to_date('2017-7-28', 'YYYY-MM-DD') - interval '40' minute  <span class="comment">-- 2017/7/27 23:20:00</span></span><br><span class="line"></span><br><span class="line">interval '10' day - interval '400' minute  <span class="comment">-- +000000009 17:20:00.000000000</span></span><br><span class="line">interval '9 17:20' day to minute  <span class="comment">-- +09 17:20:00</span></span><br></pre></td></tr></table></figure>
+<h3 id="decode"><a href="#decode" class="headerlink" title="decode"></a>decode</h3><p><a href="http://docs.oracle.com/database/122/SQLRF/DECODE.htm#SQLRF00631" target="_blank" rel="external">DECODE</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- decode()</span></span><br><span class="line"><span class="comment">-- 类似于 Java 里的 switch</span></span><br><span class="line"></span><br><span class="line">decode(2+3, 5, 'true', 'false')  <span class="comment">-- true</span></span><br><span class="line"></span><br><span class="line">decode(to_char(sysdate,'MM'), </span><br><span class="line">       01, 'Jan', </span><br><span class="line">       02, 'Feb', </span><br><span class="line">       03, 'Mar', </span><br><span class="line">       04, 'Apr', </span><br><span class="line">       05, 'May', </span><br><span class="line">       06, 'Jun', </span><br><span class="line">       07, 'Jul', </span><br><span class="line">       08, 'Aug', </span><br><span class="line">       09, 'Sep', </span><br><span class="line">       10, 'Oct', </span><br><span class="line">       11, 'Nov', </span><br><span class="line">       12, 'Dec')</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Study-Notes/" rel="tag">#Study Notes</a>
+          
+            <a href="/tags/Oracle/" rel="tag">#Oracle</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/29/leetcode-algorithms/" rel="next" title="LeetCode - Algorithms">
+                <i class="fa fa-chevron-left"></i> LeetCode - Algorithms
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="denglyan" />
+          <p class="site-author-name" itemprop="name">denglyan</p>
+          <p class="site-description motion-element" itemprop="description">めざせポケモンマスター</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#length-与-lengthb"><span class="nav-number">1.</span> <span class="nav-text">length 与 lengthb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#utl-match-edit-distance"><span class="nav-number">2.</span> <span class="nav-text">utl_match.edit_distance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#last-day"><span class="nav-number">3.</span> <span class="nav-text">last_day</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#trunc"><span class="nav-number">4.</span> <span class="nav-text">trunc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#interval"><span class="nav-number">5.</span> <span class="nav-text">interval</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#decode"><span class="nav-number">6.</span> <span class="nav-text">decode</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">denglyan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
