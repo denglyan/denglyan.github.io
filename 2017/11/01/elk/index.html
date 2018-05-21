@@ -1,0 +1,657 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Study Notes,ELK," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="ELK（Elasticsearch，Logstash，Kibana）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELK">
+<meta property="og:url" content="denglyan.github.io/2017/11/01/elk/index.html">
+<meta property="og:site_name" content="NOTE">
+<meta property="og:description" content="ELK（Elasticsearch，Logstash，Kibana）">
+<meta property="og:updated_time" content="2018-05-21T10:49:05.312Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ELK">
+<meta name="twitter:description" content="ELK（Elasticsearch，Logstash，Kibana）">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="denglyan.github.io/2017/11/01/elk/"/>
+
+  <title> ELK | NOTE </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">NOTE</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ELK
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-01T21:10:00+08:00" content="2017-11-01">
+              2017-11-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Study-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Study Notes</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Study-Notes/ELK/" itemprop="url" rel="index">
+                    <span itemprop="name">ELK</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ELK（<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.6/index.html" target="_blank" rel="external">Elasticsearch</a>，<a href="https://www.elastic.co/guide/en/logstash/5.6/index.html" target="_blank" rel="external">Logstash</a>，<a href="https://www.elastic.co/guide/en/kibana/5.6/index.html" target="_blank" rel="external">Kibana</a>）</p>
+<a id="more"></a>
+<p><strong>Elasticsearch：</strong> Elasticsearch 是基于 JSON 的分布式搜索和分析引擎，专为实现水平扩展、高可用和管理便捷性而设计</p>
+<p><strong>Logstash：</strong> Logstash 是动态数据收集管道，拥有可扩展的插件生态系统，能够与 Elasticsearch 产生强大的协同作用</p>
+<p><strong>Kibana：</strong> Kibana 能够以图表的形式呈现数据，并且具有可扩展的用户界面，供您全方位配置和管理 Elastic Stack</p>
+<h3 id="ELK-的安装配置（Windows-10）"><a href="#ELK-的安装配置（Windows-10）" class="headerlink" title="ELK 的安装配置（Windows 10）"></a>ELK 的安装配置（Windows 10）</h3><p>安装目前最新版本 <code>Elasticsearch 5.6.2</code>，需要确保 <code>Java</code> 的版本至少为 <code>Java 8</code></p>
+<p>由于在 <code>Windows</code> 的环境下，所以可以直接下载官网的 <code>elasticsearch-5.6.2.msi</code> 进行安装。安装完成之后，管理员身份运行 <code>elasticsearch.exe</code> 即可，成功之后便可以访问 <code>localhost:9200</code>，会显示如下信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;DESKTOP-QSQV2PB&quot;,</span><br><span class="line">  &quot;cluster_name&quot; : &quot;elasticsearch&quot;,</span><br><span class="line">  &quot;cluster_uuid&quot; : &quot;Dluxg6TbSVOiOunEsjQdIA&quot;,</span><br><span class="line">  &quot;version&quot; : &#123;</span><br><span class="line">    &quot;number&quot; : &quot;5.6.2&quot;,</span><br><span class="line">    &quot;build_hash&quot; : &quot;57e20f3&quot;,</span><br><span class="line">    &quot;build_date&quot; : &quot;2017-09-23T13:16:45.703Z&quot;,</span><br><span class="line">    &quot;build_snapshot&quot; : false,</span><br><span class="line">    &quot;lucene_version&quot; : &quot;6.6.1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;tagline&quot; : &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后再下载 <code>Kibana</code> 和 <code>Logstash</code> 的 <code>zip</code>，直接解压即可。这里要注意，要保持 <code>ELK</code> 版本的一致，即都是 <code>5.6.2</code></p>
+<p>运行 <code>kibana.bat</code> 成功之后，浏览器便可以访问 <code>localhost:5601</code>，通过图形界面浏览、操作数据</p>
+<p>对于 <code>Logstash</code>，先创建文件 <code>Logstash.conf</code>，用于定义数据的输入，过滤，以及输出。例如，解析文件，并且将解析后的数据存入 <code>Elasticsearch</code>：</p>
+<p>文件内的数据结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.1 name1</span><br></pre></td></tr></table></figure>
+<p><code>Logstash.conf</code> 定义：</p>
+<p><code>input{}</code> 定义数据的来源，<code>file{}</code> 从文件中读取数据，<code>start_position</code> 设置为 <code>beginning</code> 代表第一次读取文件时，从初始位置开始读取数据。因为读取文件的同时，会记录读取到的位置，所以之后文件里增加新数据后，是直接读取新的数据，并不会重头开始读取数据</p>
+<p><code>filter{}</code> 定义数据的处理，<code>grok{}</code> 解析非结构化数据，一些官方写好的正则 <a href="https://github.com/logstash-plugins/logstash-patterns-core/tree/master/patterns" target="_blank" rel="external">patterns</a>，可以直接使用</p>
+<p><code>output{}</code> 定义数据的输出，<code>elasticsearch{}</code> 输出到 <code>Elasticsearch</code> 里，<code>stdout{}</code> 输出到正在运行的界面中，方便查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">input&#123;</span><br><span class="line">	file&#123;</span><br><span class="line">		path =&gt; [&quot;E:/test.txt&quot;]</span><br><span class="line">		start_position =&gt; &quot;beginning&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">filter&#123;</span><br><span class="line">	grok&#123;</span><br><span class="line">		match =&gt; &#123;</span><br><span class="line">			&quot;message&quot; =&gt; &quot;%&#123;IP:server_ip&#125; %&#123;WORD:server_name&#125;&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output&#123;</span><br><span class="line">	elasticsearch&#123;</span><br><span class="line">		hosts =&gt; [&quot;localhost:9200&quot;]</span><br><span class="line">		index =&gt; &quot;test-logstash-%&#123;+YYYY-MM&#125;&quot;</span><br><span class="line">		document_type =&gt; &quot;file_test&quot;</span><br><span class="line">	&#125;</span><br><span class="line">	stdout&#123;</span><br><span class="line">		codec =&gt; rubydebug</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后通过命令提示符，在 <code>bin</code> 目录下运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c:\logstash-5.6.2\bin&gt;.\logstash.bat -f ..\config\Logstash.conf</span><br></pre></td></tr></table></figure>
+<p>由于设置了 <code>stdout</code>，所以可以在界面上看到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">           &quot;path&quot; =&gt; &quot;E:/test.txt&quot;,</span><br><span class="line">    &quot;server_name&quot; =&gt; &quot;name1&quot;,</span><br><span class="line">     &quot;@timestamp&quot; =&gt; 2017-10-19T12:46:37.272Z,</span><br><span class="line">       &quot;@version&quot; =&gt; &quot;1&quot;,</span><br><span class="line">           &quot;host&quot; =&gt; &quot;DESKTOP-QSQV2PB&quot;,</span><br><span class="line">      &quot;server_ip&quot; =&gt; &quot;192.168.1.1&quot;,</span><br><span class="line">        &quot;message&quot; =&gt; &quot;192.168.1.1 name1\r&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时可以在 <code>Kibana</code> 的浏览器界面的控制台 <code>Dev Tools -&gt; Console</code> 输入 <code>GET /test-logstash-2017-10/_search</code> 进行查看</p>
+<h3 id="Java-与-Elasticsearch"><a href="#Java-与-Elasticsearch" class="headerlink" title="Java 与 Elasticsearch"></a>Java 与 Elasticsearch</h3><p>这里采用 <a href="https://www.elastic.co/guide/en/elasticsearch/client/java-rest/5.6/java-rest-high.html" target="_blank" rel="external">Java High Level REST Client</a> 来进行操作</p>
+<p>Maven Repository：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.elasticsearch.client&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;elasticsearch-rest-high-level-client&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;5.6.2&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.9.1&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>同时在 <code>src/main/resources</code> 创建文件 <code>log4j2.properties</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">appender.console.type = Console</span><br><span class="line">appender.console.name = console</span><br><span class="line">appender.console.layout.type = PatternLayout</span><br><span class="line"></span><br><span class="line">rootLogger.level = info</span><br><span class="line">rootLogger.appenderRef.console.ref = console</span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.http.HttpHost;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.ElasticsearchException;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.DocWriteRequest;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.DocWriteResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.bulk.BulkRequest;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.bulk.BulkResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.delete.DeleteRequest;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.delete.DeleteResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.get.GetRequest;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.get.GetResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.index.IndexRequest;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.index.IndexResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.search.*;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.update.UpdateRequest;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.action.update.UpdateResponse;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.client.RestClient;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.client.RestHighLevelClient;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.common.xcontent.XContentType;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.rest.RestStatus;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.search.fetch.subphase.FetchSourceContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ElasticsearchClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> RestClient restClient;</span><br><span class="line">    <span class="keyword">private</span> RestHighLevelClient restHighLevelClient;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ElasticsearchClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ElasticsearchClient</span><span class="params">(String hostname, <span class="keyword">int</span> port, String scheme)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        HttpHost httpHost = <span class="keyword">new</span> HttpHost(hostname, port, scheme);</span><br><span class="line">        buildClient(httpHost);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 建立连接</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildClient</span><span class="params">(HttpHost httpHost)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        restClient = RestClient.builder(httpHost).build();</span><br><span class="line">        restHighLevelClient = <span class="keyword">new</span> RestHighLevelClient(restClient);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 关闭连接</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">closeClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            restClient.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 插入数据，index，type，id 确定插入的位置</span></span><br><span class="line">    <span class="comment">// 当前位置没有数据时，创建，状态为 indexResponse.getResult() == DocWriteResponse.Result.CREATED</span></span><br><span class="line">    <span class="comment">// 当前位置存在数据时，覆盖，状态为 indexResponse.getResult() == DocWriteResponse.Result.UPDATED</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IndexResponse <span class="title">index</span><span class="params">(Map&lt;String, Object&gt; map, String index, String type, String id)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        IndexRequest indexRequest = <span class="keyword">new</span> IndexRequest(index, type, id).source(map);</span><br><span class="line"></span><br><span class="line">        IndexResponse indexResponse = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            indexResponse = restHighLevelClient.index(indexRequest);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ElasticsearchException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> indexResponse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取数据</span></span><br><span class="line">    <span class="comment">// 通过 getResponse.isExists() 判断当前位置是否有数据</span></span><br><span class="line">    <span class="comment">// 当 index 不存在时，会抛出异常，其状态为 e.status() == RestStatus.NOT_FOUND</span></span><br><span class="line">    <span class="comment">// 若设定了 getRequest.version()，当查找的 version 不符合时，会抛出异常，其状态为 e.status() == RestStatus.CONFLICT</span></span><br><span class="line">    <span class="comment">// fetchSource 默认为 true，设置为 false 时，不取出数据</span></span><br><span class="line">    <span class="comment">// includes 设置需要取出的数据，为 Strings.EMPTY_ARRAY 或者 null 时，取出所有数据</span></span><br><span class="line">    <span class="comment">// excludes 设置需要屏蔽的数据，为 Strings.EMPTY_ARRAY 或者 null 时，不屏蔽数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> GetResponse <span class="title">get</span><span class="params">(String index, String type, String id, <span class="keyword">boolean</span> fetchSource, String[] includes, String[] excludes)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        GetRequest getRequest = <span class="keyword">new</span> GetRequest(index, type, id);</span><br><span class="line"></span><br><span class="line">        FetchSourceContext fetchSourceContext = <span class="keyword">new</span> FetchSourceContext(fetchSource, includes, excludes);</span><br><span class="line">        getRequest.fetchSourceContext(fetchSourceContext);</span><br><span class="line"></span><br><span class="line">        GetResponse getResponse = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            getResponse = restHighLevelClient.get(getRequest);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ElasticsearchException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> getResponse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除数据</span></span><br><span class="line">    <span class="comment">// 当删除的文件不存在时，deleteResponse.getResult() == DocWriteResponse.Result.NOT_FOUND</span></span><br><span class="line">    <span class="comment">// 若设定了 deleteRequest.version()，当删除的 version 不符合时，会抛出异常，其状态为 e.status() == RestStatus.CONFLICT</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DeleteResponse <span class="title">delete</span><span class="params">(String index, String type, String id)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        DeleteRequest deleteRequest = <span class="keyword">new</span> DeleteRequest(index, type, id);</span><br><span class="line"></span><br><span class="line">        DeleteResponse deleteResponse = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            deleteResponse = restHighLevelClient.delete(deleteRequest);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ElasticsearchException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> deleteResponse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新数据</span></span><br><span class="line">    <span class="comment">// 当前位置没有数据时，会抛出异常，其状态为 e.status() == RestStatus.NOT_FOUND</span></span><br><span class="line">    <span class="comment">// updateRequest.upsert(map, XContentType.JSON) 若当前位置没有数据，则会以 map 创建数据</span></span><br><span class="line">    <span class="comment">// updateRequest.fetchSource() 默认为 false，updateResponse.getGetResult() 为 null</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UpdateResponse <span class="title">update</span><span class="params">(String index, String type, String id, Map&lt;String, Object&gt; map)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        UpdateRequest updateRequest = <span class="keyword">new</span> UpdateRequest(index, type, id).doc(map);</span><br><span class="line"></span><br><span class="line">        UpdateResponse updateResponse = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            updateResponse = restHighLevelClient.update(updateRequest);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ElasticsearchException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> updateResponse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 块处理</span></span><br><span class="line">    <span class="comment">// bulkRequest.add() 添加操作</span></span><br><span class="line">    <span class="comment">// bulkResponse.hasFailures() 快速检查是否存在操作失败的情况</span></span><br><span class="line">    <span class="comment">// for (BulkItemResponse bulkItemResponse : bulkResponse) 遍历</span></span><br><span class="line">    <span class="comment">// bulkItemResponse.isFailed() 判断是否失败</span></span><br><span class="line">    <span class="comment">// DocWriteResponse docWriteResponse = bulkItemResponse.getResponse() 得到结果</span></span><br><span class="line">    <span class="comment">// bulkItemResponse.getOpType() == DocWriteRequest.OpType.INDEX 结果类型匹配</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> BulkResponse <span class="title">bulk</span><span class="params">(BulkRequest bulkRequest)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        BulkResponse bulkResponse = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            bulkResponse = restHighLevelClient.bulk(bulkRequest);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ElasticsearchException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> bulkResponse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找数据</span></span><br><span class="line">    <span class="comment">// new SearchRequest(index) 可以在创建的时候限定 index</span></span><br><span class="line">    <span class="comment">// searchRequest.types(type) 可以限定 type</span></span><br><span class="line">    <span class="comment">// searchSourceBuilder.from() 代表从结果的第几个开始获取，默认为 0</span></span><br><span class="line">    <span class="comment">// searchSourceBuilder.size() 代表取多少个结果，默认为 10</span></span><br><span class="line">    <span class="comment">// 有两种查找方式，term 和 match，主要区别体现在字符串的查找上</span></span><br><span class="line">    <span class="comment">// 字符串在存储过程中，有类型文本和关键字，两种形态</span></span><br><span class="line">    <span class="comment">// 当属于类型文本：Elasticsearch-test，其会被分词器给拆分成一个个单词，并且小写：elasticsearch，test</span></span><br><span class="line">    <span class="comment">// 用 term 查询 Elasticsearch-test 会失败，因为 term 将值当作关键字来查找，并不会进行分词</span></span><br><span class="line">    <span class="comment">// 用 match 查询 Elasticsearch-test 会成功，因为 match 会将其进行分词后，进行查找</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SearchResponse <span class="title">search</span><span class="params">(SearchRequest searchRequest)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        SearchResponse searchResponse = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            searchResponse = restHighLevelClient.search(searchRequest);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ElasticsearchException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> searchResponse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 滚动查找</span></span><br><span class="line">    <span class="comment">// 声明 searchRequest.scroll() 之后，启用滚动查找，即可以获取 searchResponse.getScrollId()</span></span><br><span class="line">    <span class="comment">// new Scroll(TimeValue.timeValueMinutes(1L)) 滚动查找的有效时间</span></span><br><span class="line">    <span class="comment">// 也可以说是 scrollId 的有效使用时间，一旦超过时间，scrollId 便会过期</span></span><br><span class="line">    <span class="comment">// new SearchScrollRequest(scrollId) 将当前 scrollId 传入，即可获取下一个片段的结果以及 scrollId</span></span><br><span class="line">    <span class="comment">// 传入 scrollId 时，同时还要重新设定 scroll 有效时间</span></span><br><span class="line">    <span class="comment">// 当 scrollId 过期时，会自动释放搜索上下文</span></span><br><span class="line">    <span class="comment">// 建议 clearScrollRequest.addScrollId(scrollId) 手动释放搜索上下文</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SearchResponse <span class="title">searchScroll</span><span class="params">(SearchScrollRequest searchScrollRequest)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        SearchResponse searchResponse = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            searchResponse = restHighLevelClient.searchScroll(searchScrollRequest);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ElasticsearchException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> searchResponse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 释放滚动搜索的上下文</span></span><br><span class="line">    <span class="comment">// 当 scrollId 过期时，会自动释放搜索上下文</span></span><br><span class="line">    <span class="comment">// 建议 clearScrollRequest.addScrollId(scrollId) 手动释放搜索上下文</span></span><br><span class="line">    <span class="comment">// clearScrollResponse.isSucceeded() 清除滚动是否成功</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ClearScrollResponse <span class="title">clearScroll</span><span class="params">(ClearScrollRequest scrollRequest)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        ClearScrollResponse clearScrollResponse = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            clearScrollResponse = restHighLevelClient.clearScroll(scrollRequest);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ElasticsearchException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> clearScrollResponse;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Study-Notes/" rel="tag">#Study Notes</a>
+          
+            <a href="/tags/ELK/" rel="tag">#ELK</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/17/oracle-sql/" rel="next" title="Oracle SQL">
+                <i class="fa fa-chevron-left"></i> Oracle SQL
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="denglyan" />
+          <p class="site-author-name" itemprop="name">denglyan</p>
+          <p class="site-description motion-element" itemprop="description">めざせポケモンマスター</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ELK-的安装配置（Windows-10）"><span class="nav-number">1.</span> <span class="nav-text">ELK 的安装配置（Windows 10）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-与-Elasticsearch"><span class="nav-number">2.</span> <span class="nav-text">Java 与 Elasticsearch</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">denglyan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
